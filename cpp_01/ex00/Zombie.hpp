@@ -10,10 +10,12 @@ class  Zombie
         std::string name;
     
     public:
-        void announce (void)
-        {
-            std::cout << ": BraiiiiiiinnnzzzZ...";
-        }
-};
+        Zombie();
+        void announce (void);
+        void nameIt(std::string name);
+    };
+    
+Zombie *newZombie(std::string name);
+void randomChump(std::string name);
 
 #endif
