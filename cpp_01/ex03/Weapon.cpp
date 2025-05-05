@@ -2,15 +2,25 @@
 
 Weapon::Weapon()
 {
-    type = "No Type";
+    type = "Typeless";
+}
+
+Weapon::Weapon(const std::string &type)
+{
+    this->type = type;
 }
 
 Weapon::~Weapon()
 {
-    type = "Destroyed";
+    ;
 }
 
-std::string &Weapon::get_type(void)
+const std::string &Weapon::getType()
 {
     return (this->type);
+}
+
+void Weapon::setType(std::string mytype)
+{
+    this->type = mytype;
 }
