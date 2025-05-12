@@ -38,9 +38,10 @@ void Harl::complain(std::string level)
     {
         if (level == levels[i])
         {
-            (this->*functions[i])();
+            for (int j = i; j < 4; j++)
+                (this->*functions[j])();
             return;
         }
     }
-    std::cout << "Unknown level : " << level << std::endl;
+    std::cout << "[ Probably complaining about insignificant problems ]" << std::endl;
 }
