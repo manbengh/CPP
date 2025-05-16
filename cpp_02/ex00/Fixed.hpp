@@ -6,8 +6,11 @@
 class Fixed
 {
     private:
+
         int _rawBits;
+
     public:
+
         Fixed();
         Fixed& operator=(const Fixed &other);
         Fixed(const Fixed &other);
