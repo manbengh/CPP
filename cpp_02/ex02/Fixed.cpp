@@ -80,6 +80,7 @@ Fixed Fixed::operator/(const Fixed &other) const
 
 
 
+
 bool Fixed::operator<(const Fixed &other) const
 {
     return (this->_rawBits < other._rawBits);
@@ -112,6 +113,7 @@ bool Fixed::operator==(const Fixed &other) const
 
 
 
+
 const Fixed &Fixed::min(const Fixed &a, const Fixed &b) 
 {
     if (a > b)
@@ -127,6 +129,23 @@ const Fixed &Fixed::max(const Fixed &a, const Fixed &b)
     else
         return (b);
 }
+
+const Fixed &Fixed::min(Fixed &a, Fixed &b) 
+{
+    if (a > b)
+        return (b);
+    else
+        return (a);
+}
+
+const Fixed &Fixed::max(Fixed &a, Fixed &b) 
+{
+    if (a > b)
+        return (a);
+    else
+        return (b);
+}
+
 
 
 
@@ -157,6 +176,8 @@ Fixed Fixed::operator--(int)
     _rawBits--;
     return (tmp);
 }
+
+
 
 std::ostream& operator<<(std::ostream& os, const Fixed& fixed)
 {
