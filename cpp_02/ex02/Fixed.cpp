@@ -47,7 +47,7 @@ void Fixed::setRawBits(int const raw)
 
 float Fixed::toFloat(void) const
 {
-    return (static_cast<float>(_rawBits) / _fractionalBits);
+    return (static_cast<float>(_rawBits) /(1 << _fractionalBits));
 }
 
 int Fixed::toInt(void) const
@@ -60,26 +60,102 @@ int Fixed::toInt(void) const
 
 Fixed Fixed::operator+(const Fixed &other) const
 {
-    Fixed res;
-
-    res.setRawBits(this->_rawBits + other._rawBits);
-    return (res);
+    return Fixed(this->toFloat() + other.toFloat());
 }
 
 Fixed Fixed::operator-(const Fixed &other) const
 {
-    Fixed res;
-
-    res.setRawBits(this->_rawBits - other._rawBits);
-    return (res);
+    return Fixed(this->toFloat() - other.toFloat());
 }
 
 Fixed Fixed::operator*(const Fixed &other) const
 {
-    Fixed res;
+    return Fixed(this->toFloat() * other.toFloat());
+}
 
-    res.setRawBits((this->_rawBits * other._rawBits) >> _fractionalBits);
-    return (res);
+Fixed Fixed::operator/(const Fixed &other) const
+{
+    return Fixed(this->toFloat() / other.toFloat());
+}
+
+
+
+bool Fixed::operator<(const Fixed &other) const
+{
+    return (this->_rawBits < other._rawBits);
+}
+
+bool Fixed::operator<=(const Fixed &other) const
+{
+    return (this->_rawBits <= other._rawBits);
+}
+
+bool Fixed::operator>(const Fixed &other) const
+{
+    return (this->_rawBits > other._rawBits);
+}
+
+bool Fixed::operator>=(const Fixed &other) const
+{
+    return (this->_rawBits >= other._rawBits);
+}
+
+bool Fixed::operator!=(const Fixed &other) const
+{
+    return (this->_rawBits != other._rawBits);
+}
+
+bool Fixed::operator==(const Fixed &other) const
+{
+    return (this->_rawBits == other._rawBits);
+}
+
+
+
+const Fixed &Fixed::min(const Fixed &a, const Fixed &b) 
+{
+    if (a > b)
+        return (b);
+    else
+        return (a);
+}
+
+const Fixed &Fixed::max(const Fixed &a, const Fixed &b) 
+{
+    if (a > b)
+        return (a);
+    else
+        return (b);
+}
+
+
+
+Fixed &Fixed::operator++()
+{
+    _rawBits++;
+    return (*this);
+}
+
+Fixed Fixed::operator++(int)
+{
+    Fixed tmp = *this;
+
+    _rawBits++;
+    return (tmp);
+}
+
+Fixed &Fixed::operator--()
+{
+    _rawBits--;
+    return (*this);
+}
+
+Fixed Fixed::operator--(int)
+{
+    Fixed tmp = *this;
+
+    _rawBits--;
+    return (tmp);
 }
 
 std::ostream& operator<<(std::ostream& os, const Fixed& fixed)

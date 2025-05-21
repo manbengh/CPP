@@ -16,16 +16,33 @@
 // }
 
 
-int main()
-{
-    Fixed a = 1;
-    Fixed b = 1;
-    Fixed c = a + b;
-    std::cout << c << std::endl;
+int main() {
+    Fixed a;
 
-    c = a - b;
-    std::cout << c << std::endl;
+    std::cout << "a : " << a << std::endl;
+    std::cout << "++a : " << ++a << std::endl;
+    std::cout << "a++ : " << a++ << std::endl;
+    std::cout << "a après a++ : " << a << std::endl;
 
-    c = Fixed(5.05f) * Fixed(2);
-    std::cout << c << std::endl;
+    std::cout << "--a : " << --a << std::endl;
+    std::cout << "a-- : " << a-- << std::endl;
+    std::cout << "a après a-- : " << a << std::endl;
+
+    return 0;
 }
+
+
+// int main()
+// {
+//     Fixed a(5);
+//     Fixed b(15);
+
+//     std::cout << Fixed::min(a, b) << std::endl;
+//     std::cout << Fixed::max(a, b) << std::endl;
+//     // if (a < b)
+//     //     std::cout << "a est plus petit que b\n";
+
+//     // if (a == b)
+//     //     std::cout << "a et b sont ==\n";
+// }
+
