@@ -17,10 +17,11 @@ Fixed::Fixed(const float value)
     _rawBits = roundf(value * (1 << _fractionalBits));
 }
 
-Fixed::Fixed(const Fixed& other) : _rawBits(other._rawBits)
+Fixed::Fixed(const Fixed& other)
 {
     std::cout << "Copy constructor called" << std::endl;
-    _rawBits = other._rawBits;
+    *this = other;
+    // _rawBits = other._rawBits;
 }
 
 Fixed& Fixed::operator=(const Fixed &other)
@@ -38,21 +39,15 @@ Fixed::~Fixed()
     std::cout << "Destructor called" << std::endl;
 }
 
-
-
-
 float Fixed::toFloat(void) const
 {
     return (static_cast<float>(_rawBits) /(1 << _fractionalBits));
 }
 
-
 int Fixed::toInt(void) const
 {
     return (_rawBits >> _fractionalBits);
 }
-
-
 
 std::ostream& operator<<(std::ostream& os, const Fixed& fixed)
 {
