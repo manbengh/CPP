@@ -9,7 +9,7 @@ int main(int ac, char **av)
         std::cout << "Wrong number of arguments !" << std::endl;
         return (0);
     }
-    Zombie = zombieHorde(3, "zombie");
+    Zombie = zombieHorde(9, "zombie");
     delete[] Zombie;
     return 0;
 }
