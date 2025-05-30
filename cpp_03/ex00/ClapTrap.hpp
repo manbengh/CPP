@@ -21,10 +21,10 @@ class ClapTrap
         ClapTrap &operator=(const ClapTrap &other);
         ~ClapTrap();        
         
-        std::string getName();
-        int getHitPoints();
-        int getEnergyPoints();
-        int getAttackDamage();
+        std::string getName() const;
+        int getHitPoints() const;
+        int getEnergyPoints() const;
+        int getAttackDamage() const;
         
         void setName(std::string name);
         void setHitPoints(int hitPoints);
@@ -36,6 +36,7 @@ class ClapTrap
         void beRepaired(unsigned int amount);
 };
 
-// std::ostream& operator<<(std::ostream& os, const Fixed& fixed);
+void print_claptrap(ClapTrap &clap);
+std::ostream &operator<<(std::ostream &os, const ClapTrap &clap);
 
 #endif

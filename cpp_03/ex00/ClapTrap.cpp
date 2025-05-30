@@ -35,22 +35,22 @@ ClapTrap::~ClapTrap()
 
 
 // Getters
-std::string ClapTrap::getName()
+std::string ClapTrap::getName() const
 {
     return (this->_name);
 }
 
-int ClapTrap::getHitPoints()
+int ClapTrap::getHitPoints() const
 {
     return (this->_hitPoints);
 }
 
-int ClapTrap::getEnergyPoints()
+int ClapTrap::getEnergyPoints() const
 {
     return (this->_energyPoints);
 }
 
-int ClapTrap::getAttackDamage()
+int ClapTrap::getAttackDamage() const
 {
     return (this->_attackDamage);
 }
@@ -88,9 +88,9 @@ void ClapTrap::attack(const std::string& target)
         setEnergyPoints(getEnergyPoints() - 1);
     }
     else if (getHitPoints() == 0)
-        std::cout << getName() << " is out of Hit Points." << std::endl;
+        std::cout << "ClapTrap " << getName() << " is out of Hit Points." << std::endl;
     else
-        std::cout << getName() << " is out of Energy Points." << std::endl;
+        std::cout << "ClapTrap " << getName() << " is out of Energy Points." << std::endl;
 }
 
 void ClapTrap::takeDamage(unsigned int amount)
@@ -98,15 +98,55 @@ void ClapTrap::takeDamage(unsigned int amount)
     if (getHitPoints() == 0)
     {
         std::cout << getName() << " is out of Hit Points." << std::endl;
+        return ;
     }
     std::cout << getName() << " takes " << amount << " points of damage." << std::endl;
-    this->_hitPoints -= amount;
-    if (this->_hitPoints <= 0)
+    // this->_hitPoints -= amount;
+    setHitPoints(getHitPoints() - amount);
+    if (getHitPoints() <= 0)
+    {
+        std::cout << "ClapTrap " << this->_name << " is dead." << std::endl;
         this->_hitPoints = 0;
-    
+    }
 }
 
 void ClapTrap::beRepaired(unsigned int amount)
 {
+    // std::cout << "\n\n EnergyPoints ----> " << getEnergyPoints() << std::endl;
+    if (getEnergyPoints() <= 0)
+    {
+        std::cout << "ClapTrap " << getName() << " is out of Energy Points." << std::endl;
+        return;
+    }
+    else if (getHitPoints() == 10)
+    {
+        std::cout << "ClapTrap " << getName() << " is perfectly healthy. 1" << std::endl;
+        return;
+    }
+    setEnergyPoints(getEnergyPoints() - 1);
+    if (getHitPoints() + amount > 10)
+    {
+        setHitPoints(10);
+        std::cout << "ClapTrap " << getName() << " is perfectly healthy. 2" << std::endl;
+        return;
+    }
+    setHitPoints(getHitPoints() + amount);
+}
 
+
+void print_claptrap(ClapTrap &clap)
+{
+    std::cout << "Name : " << clap.getName() << std::endl;
+    std::cout << "HitPoints : " << clap.getHitPoints() << std::endl;
+    std::cout << "EnergyPoints : " << clap.getEnergyPoints() << std::endl;
+    std::cout << "AttackDamage : " << clap.getAttackDamage() << std::endl;
+}
+
+std::ostream &operator<<(std::ostream &os, const ClapTrap &claptrap)
+{
+    os << "Name : " << claptrap.getName() << std::endl;
+    os << "HitPoints : " << claptrap.getHitPoints() << std::endl;
+    os << "EnergyPoints : " << claptrap.getEnergyPoints() << std::endl;
+    os << "AttackDamage : " << claptrap.getAttackDamage() << std::endl;
+    return (os);
 }
