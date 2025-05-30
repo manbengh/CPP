@@ -16,9 +16,24 @@ class ClapTrap
     public:
 
         ClapTrap();
-        ~ClapTrap();
-        // void attack(const std::string& target);
+        ClapTrap(std::string name);
+        ClapTrap(ClapTrap const &other);
+        ClapTrap &operator=(const ClapTrap &other);
+        ~ClapTrap();        
+        
+        std::string getName();
+        int getHitPoints();
+        int getEnergyPoints();
+        int getAttackDamage();
+        
+        void setName(std::string name);
+        void setHitPoints(int hitPoints);
+        void setEnergyPoints(int energyPoints);
+        void setAttackDamage(int attackDamage);
 
+        void attack(const std::string& target);
+        void takeDamage(unsigned int amount);
+        void beRepaired(unsigned int amount);
 };
 
 // std::ostream& operator<<(std::ostream& os, const Fixed& fixed);
