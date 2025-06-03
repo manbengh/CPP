@@ -17,20 +17,29 @@
 // int main()
 // {
 //     ClapTrap a("A");
+//     ClapTrap b("B");
 
 //     print_claptrap(a);
 
 //     std::cout << std::endl;
 
 //     a.attack("B");
-//     a.attack("B");
-//     a.attack("B");
-//     a.attack("B");
-//     a.attack("B");
-//     a.attack("B");
-//     std::cout << a.getEnergyPoints() << std::endl;
-//     a.beRepaired(2);
-//     std::cout << a.getEnergyPoints() << std::endl;
+//     b.takeDamage(a.getAttackDamage());
+
+//     std::cout << "Energy points after attack -> " << b.getEnergyPoints() << std::endl;
+//     std::cout << "Hit points after attack -> " << b.getHitPoints() << std::endl;
+//     // a.beRepaired(2);
+//     // std::cout << a.getEnergyPoints() << std::endl;
+//     std::cout << std::endl;
+
+//     a.getAttackDamage(); 
+//     std::cout << "Energy points after getAttackDamage -> " << a.getEnergyPoints() << std::endl;
+//     std::cout << "Hit points after getAttackDamage -> " << a.getHitPoints() << std::endl;
+//     std::cout << std::endl;
+
+//     a.beRepaired(3);
+//     std::cout << "Hit points -> " << a.getHitPoints() << std::endl;
+//     std::cout << "Energy points -> " << a.getEnergyPoints() << std::endl;
 
 //     std::cout << std::endl;
 // }
@@ -39,58 +48,25 @@
 
 int main()
 {
-    std::cout << "Testing ClapTrap constructors and copy operators" << std::endl;
+    ClapTrap a("A");
 
-    ClapTrap claptrap_1;
-    std::cout << claptrap_1;
+    print_claptrap(a);
 
-    ClapTrap claptrap_2("Claptrap_2");
-    std::cout << claptrap_2;
+    std::cout << "\n--- État initial ---" << std::endl;
+    std::cout << "HP: " << a.getHitPoints() << ", Energy: " << a.getEnergyPoints() << ", Damage: " << a.getAttackDamage() << std::endl;
 
-    ClapTrap claptrap_3(claptrap_2);
-    std::cout << claptrap_3;
+    std::cout << "\n--- Attaque ---" << std::endl;
+    a.attack("Ennemi");
 
-    claptrap_3 = claptrap_2;
-    std::cout << claptrap_3;
+    std::cout << "\n--- Dégâts reçus (5) ---" << std::endl;
+    a.takeDamage(5);
 
-    claptrap_3 = claptrap_1;
-    std::cout << claptrap_3;
+    std::cout << "\n--- Réparation (3) ---" << std::endl;
+    a.beRepaired(3);
 
-    std::cout << "Testing ClapTrap member functions" << std::endl;
+    std::cout << "\n--- État final ---" << std::endl;
+    std::cout << "HP: " << a.getHitPoints() << ", Energy: " << a.getEnergyPoints() << ", Damage: " << a.getAttackDamage() << std::endl;
 
-    claptrap_1.attack("claptrap_2");
-    claptrap_2.takeDamage(claptrap_1.getAttackDamage());
-    claptrap_1.attack("claptrap_2");
-    claptrap_2.takeDamage(claptrap_1.getAttackDamage());
-    claptrap_1.attack("claptrap_2");
-    claptrap_2.takeDamage(claptrap_1.getAttackDamage());
-    claptrap_1.attack("claptrap_2");
-    claptrap_2.takeDamage(claptrap_1.getAttackDamage());
-    claptrap_1.attack("claptrap_2");
-    claptrap_2.takeDamage(claptrap_1.getAttackDamage());
-    claptrap_1.attack("claptrap_2");
-    claptrap_2.takeDamage(claptrap_1.getAttackDamage());
-    claptrap_1.attack("claptrap_2");
-    claptrap_2.takeDamage(claptrap_1.getAttackDamage());
-    claptrap_1.attack("claptrap_2");
-    claptrap_2.takeDamage(claptrap_1.getAttackDamage());
-
-    std::cout << claptrap_1;
-
-    claptrap_1.attack("claptrap_2");
-    claptrap_2.takeDamage(claptrap_1.getAttackDamage());
-    claptrap_1.attack("claptrap_2");
-    claptrap_2.takeDamage(claptrap_1.getAttackDamage());
-    claptrap_1.attack("claptrap_2");
-
-    claptrap_1.attack("claptrap_2");
-    claptrap_2.takeDamage(11);
-
-    std::cout << claptrap_2;
-    claptrap_2.beRepaired(5);
-
-    std::cout << claptrap_2;
-    claptrap_2.beRepaired(6);
-
-    std::cout << claptrap_2;
+    return 0;
 }
+

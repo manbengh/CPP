@@ -13,34 +13,31 @@ void printStatus(const ClapTrap& c)
 
 int main()
 {
-    // std::cout << "===== CREATE ROBOTS =====" << std::endl;
     ClapTrap a("A");
     ScavTrap b("B");
     FragTrap c("C");
 
-    // std::cout << "\n===== INITIAL STATS =====" << std::endl;
     printStatus(a);
     printStatus(b);
     printStatus(c);
 
-    std::cout << "C attack A" << std::endl;
+    std::cout << "---C attack A--- " << std::endl;
     c.attack("A");
     a.takeDamage(c.getAttackDamage());
     printStatus(a);
 
-    std::cout << "C repairing" << std::endl;
+    std::cout << "---C repairing---" << std::endl;
     c.beRepaired(20);
     printStatus(c);
 
-    // std::cout << "===== C USES HIGH FIVE =====" << std::endl;
     c.highFivesGuys();
 
-    std::cout << "===== ENERGY SPAM TEST (C) =====" << std::endl;
-    for (int i = 0; i < 10; ++i)
-        c.attack("Air");
+    std::cout << "---Energy testing--- " << std::endl;
+    for (int i = 0; i < 10; i++)
+        c.attack("A");
 
     printStatus(c);
 
-    std::cout << "\n===== END =====" << std::endl;
+    std::cout << std::endl;
     return 0;
 }
