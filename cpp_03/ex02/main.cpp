@@ -1,0 +1,46 @@
+#include "ClapTrap.hpp"
+#include "ScavTrap.hpp"
+#include "FragTrap.hpp"
+
+void printStatus(const ClapTrap& c)
+{
+    std::cout << "---- " << c.getName() << " ----" << std::endl;
+    std::cout << "Hit Points: " << c.getHitPoints() << std::endl;
+    std::cout << "Energy Points: " << c.getEnergyPoints() << std::endl;
+    std::cout << "Attack Damage: " << c.getAttackDamage() << std::endl;
+    std::cout << std::endl;
+}
+
+int main()
+{
+    // std::cout << "===== CREATE ROBOTS =====" << std::endl;
+    ClapTrap a("A");
+    ScavTrap b("B");
+    FragTrap c("C");
+
+    // std::cout << "\n===== INITIAL STATS =====" << std::endl;
+    printStatus(a);
+    printStatus(b);
+    printStatus(c);
+
+    std::cout << "C attack A" << std::endl;
+    c.attack("A");
+    a.takeDamage(c.getAttackDamage());
+    printStatus(a);
+
+    std::cout << "C repairing" << std::endl;
+    c.beRepaired(20);
+    printStatus(c);
+
+    // std::cout << "===== C USES HIGH FIVE =====" << std::endl;
+    c.highFivesGuys();
+
+    std::cout << "===== ENERGY SPAM TEST (C) =====" << std::endl;
+    for (int i = 0; i < 10; ++i)
+        c.attack("Air");
+
+    printStatus(c);
+
+    std::cout << "\n===== END =====" << std::endl;
+    return 0;
+}
