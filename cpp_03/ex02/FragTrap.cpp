@@ -2,12 +2,12 @@
 
 FragTrap::FragTrap() : _name("Default"), _hitPoints(100), _energyPoints(100), _attackDamage(30)
 {
-    std::cout << "FragTrap " << _name << " created." << std::endl;
+    std::cout << "FragTrap " << getName() << " created." << std::endl;
 }
 
 FragTrap::FragTrap(std::string name) : ClapTrap(name), _hitPoints(100), _energyPoints(100), _attackDamage(30)
 {
-    std::cout << "FragTrap " << _name << " called." << std::endl;
+    std::cout << "FragTrap " << getName() << " called." << std::endl;
 }
 
 FragTrap::FragTrap(FragTrap const &other)
@@ -29,14 +29,14 @@ FragTrap &FragTrap::operator=(const FragTrap &other)
 
 FragTrap::~FragTrap()
 {
-    std::cout << "FragTrap " << _name << " destroyed." << std::endl;
+    std::cout << "FragTrap " << getName() << " destroyed." << std::endl;
 }
 
 
 
 void FragTrap::highFivesGuys(void)
 {
-    std::cout << "FragTrap " << getName() << " is asking for a highfive." << std::endl;
+    std::cout << "FragTrap " << getName() << " is asking for a highfive !" << std::endl;
 }
 
 void FragTrap::attack(const std::string &target)

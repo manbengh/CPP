@@ -2,12 +2,12 @@
 
 ScavTrap::ScavTrap() : _name("Default"), _hitPoints(100), _energyPoints(50), _attackDamage(20)
 {
-    std::cout << "ScavTrap " << _name << " created." << std::endl;
+    std::cout << "ScavTrap " << getName() << " created." << std::endl;
 }
 
 ScavTrap::ScavTrap(std::string name) : ClapTrap(name), _hitPoints(100), _energyPoints(50), _attackDamage(20)
 {
-    std::cout << "ScavTrap " << _name << " called." << std::endl;
+    std::cout << "ScavTrap " << getName() << " called." << std::endl;
 }
 
 ScavTrap::ScavTrap(ScavTrap const &other)
@@ -28,7 +28,7 @@ ScavTrap &ScavTrap::operator=(const ScavTrap &other)
 
 ScavTrap::~ScavTrap()
 {
-    std::cout << "ScavTrap " << _name << " destroyed." << std::endl;
+    std::cout << "ScavTrap " << getName() << " destroyed." << std::endl;
 }
 
 

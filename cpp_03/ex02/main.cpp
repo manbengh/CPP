@@ -2,42 +2,55 @@
 #include "ScavTrap.hpp"
 #include "FragTrap.hpp"
 
-void printStatus(const ClapTrap& c)
-{
-    std::cout << "---- " << c.getName() << " ----" << std::endl;
-    std::cout << "Hit Points: " << c.getHitPoints() << std::endl;
-    std::cout << "Energy Points: " << c.getEnergyPoints() << std::endl;
-    std::cout << "Attack Damage: " << c.getAttackDamage() << std::endl;
-    std::cout << std::endl;
-}
 
 int main()
 {
     ClapTrap a("A");
-    ScavTrap b("B");
-    FragTrap c("C");
+    ScavTrap s("S");
+    FragTrap f("F");
 
-    printStatus(a);
-    printStatus(b);
-    printStatus(c);
+    print_claptrap(a);
+    print_claptrap(s);
+    print_claptrap(f);
 
-    std::cout << "---C attack A--- " << std::endl;
-    c.attack("A");
-    a.takeDamage(c.getAttackDamage());
-    printStatus(a);
+    std::cout << "--- S attacks A ---" << std::endl;
+    s.attack("A");
+    a.takeDamage(s.getAttackDamage());
+    print_claptrap(a);
+    print_claptrap(s);
 
-    std::cout << "---C repairing---" << std::endl;
-    c.beRepaired(20);
-    printStatus(c);
+    a.setAttackDamage(3);
+    s.setAttackDamage(1);
 
-    c.highFivesGuys();
+    std::cout << "--- A attacks S ---" << std::endl;
+    a.attack("S");
+    s.takeDamage(a.getAttackDamage());
+    print_claptrap(a);
+    print_claptrap(s);
 
-    std::cout << "---Energy testing--- " << std::endl;
-    for (int i = 0; i < 10; i++)
-        c.attack("A");
+    s.beRepaired(1);
 
-    printStatus(c);
+    std::cout << "--- S repaired ---" << std::endl;
+    print_claptrap(a);
+    print_claptrap(s);
+
+    s.guardGate();
 
     std::cout << std::endl;
-    return 0;
+
+    std::cout << "--- S attacks F ---" << std::endl;
+    s.attack("F");
+    f.takeDamage(s.getAttackDamage());
+    print_claptrap(f);
+    print_claptrap(s);
+
+    f.beRepaired(1);
+
+    std::cout << "--- F repaired ---" << std::endl;
+    print_claptrap(f);
+    print_claptrap(s);
+
+    f.highFivesGuys();
+
+    std::cout << std::endl;
 }

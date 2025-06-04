@@ -134,10 +134,11 @@ void ClapTrap::beRepaired(unsigned int amount)
 
 void print_claptrap(ClapTrap &clap)
 {
-    std::cout << "Name : " << clap.getName() << std::endl;
+    std::cout << "---- " << clap.getName() << " ---- " << std::endl;
     std::cout << "HitPoints : " << clap.getHitPoints() << std::endl;
     std::cout << "EnergyPoints : " << clap.getEnergyPoints() << std::endl;
     std::cout << "AttackDamage : " << clap.getAttackDamage() << std::endl;
+    std::cout << std::endl;
 }
 
 std::ostream &operator<<(std::ostream &os, const ClapTrap &claptrap)

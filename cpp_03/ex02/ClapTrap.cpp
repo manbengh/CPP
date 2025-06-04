@@ -2,13 +2,13 @@
 
 ClapTrap::ClapTrap() : _name("Default"), _hitPoints(10), _energyPoints(10), _attackDamage(0)
 {
-    std::cout << "ClapTrap " << _name << " created." << std::endl;
+    std::cout << "ClapTrap " << getName() << " created." << std::endl;
 }
 
 ClapTrap::ClapTrap(std::string name) :  _hitPoints(10), _energyPoints(10), _attackDamage(0)
 {
     this->_name = name;
-    std::cout << "ClapTrap " << _name << " called." << std::endl;
+    std::cout << "ClapTrap " << getName() << " called." << std::endl;
 }
 
 ClapTrap::ClapTrap(const ClapTrap &other)
@@ -30,7 +30,7 @@ ClapTrap &ClapTrap::operator=(const ClapTrap &other)
 
 ClapTrap::~ClapTrap()
 {
-    std::cout << "ClapTrap " << _name << " destroyed." << std::endl;
+    std::cout << "ClapTrap " << getName() << " destroyed." << std::endl;
 }
 
 
@@ -135,10 +135,11 @@ void ClapTrap::beRepaired(unsigned int amount)
 
 void print_claptrap(ClapTrap &clap)
 {
-    std::cout << "Name : " << clap.getName() << std::endl;
+    std::cout << "---- " << clap.getName() << " ---- " << std::endl;
     std::cout << "HitPoints : " << clap.getHitPoints() << std::endl;
     std::cout << "EnergyPoints : " << clap.getEnergyPoints() << std::endl;
     std::cout << "AttackDamage : " << clap.getAttackDamage() << std::endl;
+    std::cout << std::endl;
 }
 
 std::ostream &operator<<(std::ostream &os, const ClapTrap &claptrap)
