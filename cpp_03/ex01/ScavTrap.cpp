@@ -1,13 +1,17 @@
 # include "ScavTrap.hpp"
 
-ScavTrap::ScavTrap() : _name("Default"), _hitPoints(100), _energyPoints(50), _attackDamage(20)
-{
-    std::cout << "ScavTrap " << getName() << " created." << std::endl;
-}
+// ScavTrap::ScavTrap() : _name("Default"), _hitPoints(100), _energyPoints(50), _attackDamage(20)
+// {
+//     std::cout << "ScavTrap " << _name << " created." << std::endl;
+// }
 
-ScavTrap::ScavTrap(std::string name) : ClapTrap(name), _hitPoints(100), _energyPoints(50), _attackDamage(20)
+ScavTrap::ScavTrap(std::string name) : ClapTrap(name)
 {
-    std::cout << "ScavTrap " << getName() << " called." << std::endl;
+    this->_name = name;
+	this->_hitPoints = 100;
+	this->_energyPoints = 50;
+	this->_attackDamage = 20;
+    std::cout << "ScavTrap " << _name << " called." << std::endl;
 }
 
 ScavTrap::ScavTrap(ScavTrap const &other)
@@ -28,23 +32,23 @@ ScavTrap &ScavTrap::operator=(const ScavTrap &other)
 
 ScavTrap::~ScavTrap()
 {
-    std::cout << "ScavTrap " << getName() << " destroyed." << std::endl;
+    std::cout << "ScavTrap " << _name << " destroyed." << std::endl;
 }
 
 void ScavTrap::guardGate()
 {
-    std::cout << "ScavTrap is now in Gate keeper mode." << std::endl;
+    std::cout << "ScavTrap " << _name << " is now in Gate keeper mode." << std::endl;
 }
 
 void ScavTrap::attack(const std::string &target)
 {
     if (getHitPoints() > 0 && getEnergyPoints() > 0)
     {
-        std::cout << "ScavTrap " << getName() << " attacks " << target << ", causing " << getAttackDamage() << " points of damage!" << std::endl;
+        std::cout << "ScavTrap " << _name << " attacks " << target << ", causing " << getAttackDamage() << " points of damage!" << std::endl;
         setEnergyPoints(getEnergyPoints() - 1);
     }
     else if (getHitPoints() == 0)
-        std::cout << "ScavTrap " << getName() << " is out of Hit Points." << std::endl;
+        std::cout << "ScavTrap " << _name << " is out of Hit Points." << std::endl;
     else
-        std::cout << "ScavTrap " << getName() << " is out of Energy Points." << std::endl;
+        std::cout << "ScavTrap " << _name << " is out of Energy Points." << std::endl;
 }

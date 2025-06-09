@@ -5,16 +5,9 @@
 
 class FragTrap : public ClapTrap
 {
-    private:
-
-        std::string _name;
-        unsigned int _hitPoints;
-        unsigned int _energyPoints;
-        unsigned int _attackDamage;
-
     public:
 
-        FragTrap();
+        // FragTrap();
         FragTrap(std::string name);
         FragTrap(FragTrap const &other);
         FragTrap &operator=(const FragTrap &other);

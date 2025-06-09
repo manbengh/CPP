@@ -3,54 +3,24 @@
 #include "FragTrap.hpp"
 
 
-int main()
-{
-    ClapTrap a("A");
-    ScavTrap s("S");
-    FragTrap f("F");
+int main() {
+    FragTrap frag("Frag");
+    print_claptrap(frag);
 
-    print_claptrap(a);
-    print_claptrap(s);
-    print_claptrap(f);
+    frag.attack("B");
+    frag.takeDamage(20);
+    frag.beRepaired(10);
+    frag.highFivesGuys();
+    print_claptrap(frag);
 
-    std::cout << "--- S attacks A ---" << std::endl;
-    s.attack("A");
-    a.takeDamage(s.getAttackDamage());
-    print_claptrap(a);
-    print_claptrap(s);
+    std::cout << "\n--- Copy Constructor Test ---" << std::endl;
+    FragTrap fragCopy(frag);
+    fragCopy.attack("C");
 
-    a.setAttackDamage(3);
-    s.setAttackDamage(1);
+    std::cout << "\n--- Assignment Operator Test ---" << std::endl;
+    FragTrap anotherFrag("anotherFrag");
+    anotherFrag = frag;
+    anotherFrag.highFivesGuys();
 
-    std::cout << "--- A attacks S ---" << std::endl;
-    a.attack("S");
-    s.takeDamage(a.getAttackDamage());
-    print_claptrap(a);
-    print_claptrap(s);
-
-    s.beRepaired(1);
-
-    std::cout << "--- S repaired ---" << std::endl;
-    print_claptrap(a);
-    print_claptrap(s);
-
-    s.guardGate();
-
-    std::cout << std::endl;
-
-    std::cout << "--- S attacks F ---" << std::endl;
-    s.attack("F");
-    f.takeDamage(s.getAttackDamage());
-    print_claptrap(f);
-    print_claptrap(s);
-
-    f.beRepaired(1);
-
-    std::cout << "--- F repaired ---" << std::endl;
-    print_claptrap(f);
-    print_claptrap(s);
-
-    f.highFivesGuys();
-
-    std::cout << std::endl;
+    return 0;
 }

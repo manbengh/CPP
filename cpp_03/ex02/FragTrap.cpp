@@ -1,13 +1,13 @@
 #include "FragTrap.hpp"
 
-FragTrap::FragTrap() : _name("Default"), _hitPoints(100), _energyPoints(100), _attackDamage(30)
-{
-    std::cout << "FragTrap " << getName() << " created." << std::endl;
-}
 
-FragTrap::FragTrap(std::string name) : ClapTrap(name), _hitPoints(100), _energyPoints(100), _attackDamage(30)
+FragTrap::FragTrap(std::string name) : ClapTrap(name)
 {
-    std::cout << "FragTrap " << getName() << " called." << std::endl;
+    this->_name = name;
+	this->_hitPoints = 100;
+	this->_energyPoints = 100;
+	this->_attackDamage = 30;
+    std::cout << "FragTrap " << _name << " called." << std::endl;
 }
 
 FragTrap::FragTrap(FragTrap const &other)
@@ -29,25 +29,25 @@ FragTrap &FragTrap::operator=(const FragTrap &other)
 
 FragTrap::~FragTrap()
 {
-    std::cout << "FragTrap " << getName() << " destroyed." << std::endl;
+    std::cout << "FragTrap " << _name << " destroyed." << std::endl;
 }
 
 
 
 void FragTrap::highFivesGuys(void)
 {
-    std::cout << "FragTrap " << getName() << " is asking for a highfive !" << std::endl;
+    std::cout << "FragTrap " << _name << " is asking for a highfive !✋" << std::endl;
 }
 
 void FragTrap::attack(const std::string &target)
 {
     if (getHitPoints() > 0 && getEnergyPoints() > 0)
     {
-        std::cout << "FragTrap " << getName() << " attacks " << target << ", causing " << getAttackDamage() << " points of damage!" << std::endl;
+        std::cout << "FragTrap " << _name << " attacks " << target << ", causing " << getAttackDamage() << " points of damage!" << std::endl;
         setEnergyPoints(getEnergyPoints() - 1);
     }
     else if (getHitPoints() == 0)
-        std::cout << "FragTrap " << getName() << " is out of Hit Points." << std::endl;
+        std::cout << "FragTrap " << _name << " is out of Hit Points." << std::endl;
     else
-        std::cout << "FragTrap " << getName() << " is out of Energy Points." << std::endl;
+        std::cout << "FragTrap " << _name << " is out of Energy Points." << std::endl;
 }

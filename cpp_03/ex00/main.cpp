@@ -1,40 +1,20 @@
 #include "ClapTrap.hpp"
 
-
-int main()
-{
+int main() {
     ClapTrap a("A");
-    ClapTrap b("B");
 
-    print_claptrap(a);
-    print_claptrap(b);
-
-    a.setAttackDamage(1);
-    b.setAttackDamage(1);
-
-    std::cout << "--- A attacks B ---" << std::endl;
     a.attack("B");
-    b.takeDamage(a.getAttackDamage());
-    print_claptrap(a);
-    print_claptrap(b);
+    a.takeDamage(1);
+    a.beRepaired(1);
+    a.attack("C");
+    a.takeDamage(12);
+    a.beRepaired(2);
+    a.attack("B"); 
+    a.beRepaired(3);
 
-    std::cout << "--- B attacks A ---" << std::endl;
-    b.attack("B");
-    a.takeDamage(b.getAttackDamage());
-    print_claptrap(a);
-    print_claptrap(b);
+    ClapTrap b = a;
+    ClapTrap c("Z");
+    c = a;
 
-    a.setAttackDamage(2);
-    b.setAttackDamage(2);
-
-    std::cout << std::endl;
-    std::cout << "--- A attacks B AGAIN---" << std::endl;
-    a.attack("B");
-    b.takeDamage(a.getAttackDamage());
-    print_claptrap(b);
-
-    std::cout << "--- B attacks A AGAIN---" << std::endl;
-    b.attack("B");
-    a.takeDamage(b.getAttackDamage());
-    print_claptrap(a);
+    return 0;
 }

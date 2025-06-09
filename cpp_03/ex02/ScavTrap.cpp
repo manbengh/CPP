@@ -1,13 +1,12 @@
 # include "ScavTrap.hpp"
 
-ScavTrap::ScavTrap() : _name("Default"), _hitPoints(100), _energyPoints(50), _attackDamage(20)
+ScavTrap::ScavTrap(std::string name) : ClapTrap(name)
 {
-    std::cout << "ScavTrap " << getName() << " created." << std::endl;
-}
-
-ScavTrap::ScavTrap(std::string name) : ClapTrap(name), _hitPoints(100), _energyPoints(50), _attackDamage(20)
-{
-    std::cout << "ScavTrap " << getName() << " called." << std::endl;
+    this->_name = name;
+	this->_hitPoints = 100;
+	this->_energyPoints = 50;
+	this->_attackDamage = 20;
+    std::cout << "ScavTrap " << _name << " called." << std::endl;
 }
 
 ScavTrap::ScavTrap(ScavTrap const &other)

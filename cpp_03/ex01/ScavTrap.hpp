@@ -5,16 +5,10 @@
 
 class ScavTrap : public ClapTrap
 {
-    private:
-
-        std::string _name;
-        unsigned int _hitPoints;
-        unsigned int _energyPoints;
-        unsigned int _attackDamage;
 
     public:
 
-        ScavTrap();
+        // ScavTrap();
         ScavTrap(std::string name);
         ScavTrap(ScavTrap const &other);
         ScavTrap &operator=(const ScavTrap &other);
