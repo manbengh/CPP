@@ -4,7 +4,7 @@ OBJ = $(SRC:.cpp=.o)
 
 CXX = c++
 
-NAME = ClapTrap
+NAME = Animal
 
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
