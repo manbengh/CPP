@@ -3,6 +3,7 @@
 #include "Dog.hpp"
 #include "WrongAnimal.hpp"
 #include "WrongCat.hpp"
+#include "Brain.hpp"
 
 int main() {
 
@@ -37,17 +38,30 @@ int main() {
     std::cout << "cat2 type (copie) : " << cat2.getType() << std::endl;
 
     WrongAnimal *WAnimal = new WrongCat();
-    // WrongCat WCat;
-
     std::cout << "\n--- Wrong Types ---" << std::endl;
     std::cout << "Wrong Animal type : " << WAnimal->getType() << std::endl;
-    // std::cout << "Wrong Cat type    : " << WCat.getType() << std::endl;
 
     std::cout << "\n--- Wrong Sounds ---" << std::endl;
     WAnimal->makeSound(); // Generic
-    // WCat.makeSound(); // Woof
     std::cout << std::endl;
 
     delete WAnimal;
+
+    std::cout << "\n--- Test Brain (with Cat) ---" << std::endl;
+
+    Cat catA;
+    catA.setBrainIdea(0, "Dormir");
+    catA.setBrainIdea(1, "Manger");
+
+    std::cout << "catA idée 0 : " << catA.getBrainIdea(0) << std::endl;
+    std::cout << "catA idée 1 : " << catA.getBrainIdea(1) << std::endl;
+
+    Cat catB(catA);
+    std::cout << "\ncatB idée 1 (copie) : " << catB.getBrainIdea(1) << std::endl;
+
+    catB.setBrainIdea(0, "Chasser");
+    std::cout << "catA idée 0 après modif de catB : " << catA.getBrainIdea(0) << std::endl;
+    std::cout << "catB idée 0 modifiée : " << catB.getBrainIdea(0) << std::endl;
+
     return 0;
 }
