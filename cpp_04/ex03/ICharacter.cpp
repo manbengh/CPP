@@ -5,6 +5,8 @@ Character::Character(std::string name)
     this->_name = name;
     for (int i = 0; i < 4; i++)
         _inventory[i] = NULL;
+    for (int i = 0; i < 60; i++)
+        _floor[i] = NULL;
 }
 
 Character &Character::operator=(const Character &other)
@@ -20,6 +22,14 @@ Character &Character::operator=(const Character &other)
             else
                 _inventory[i] = NULL;
         }
+        for (int i = 0; i < 60; i++)
+        {
+            delete _floor[i];
+            if (other._floor[i])
+                _floor[i] = other._floor[i]->clone();
+            else
+                _floor[i] = NULL;
+        }
     }
     return (*this);
 }
@@ -28,6 +38,8 @@ Character::~Character()
 {
     for (int i = 0; i < 4; i++)
         delete _inventory[i];
+    for (int i = 0; i < 4; i++)
+        delete _floor[i];
     std::cout << "Character destroyed." << std::endl;
 }
 
@@ -62,9 +74,15 @@ void Character::unequip(int idx)
         std::cout << "Invalid index or no Materia to unequip." << std::endl;
         return;
     }
-    std::cout << "Materia " << _inventory[idx]->getType() << " unequipped from index " << idx << "." << std::endl;
-    delete _inventory[idx];
-    _inventory[idx] = NULL;
+    for (int i = 0; i < 60; i++)
+    {
+        if (_floor[i] == NULL)
+        {
+            _floor[i] = _inventory[idx];
+            _inventory[idx] = NULL;
+            return;
+        }
+    }
 }
 
 void Character::use(int idx, ICharacter &target)
