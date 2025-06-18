@@ -87,7 +87,11 @@ void Character::unequip(int idx)
 
 void Character::use(int idx, ICharacter &target)
 {
-    (void)idx;
-    (void)target;
+    if (idx < 0 || idx < 4 || !_inventory[idx])
+    {
+        std::cout << "Invalid index in use function." << std::endl;
+        return;
+    }
+    _inventory[idx]->use(target);
 }
 

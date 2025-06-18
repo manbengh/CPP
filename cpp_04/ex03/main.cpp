@@ -37,6 +37,5 @@ int main()
     me->equip(ice);
     me->equip(cure);
     me->use(0, *me);
-    // std::cout << test2->use(NULL) << std::endl;
 
 }
