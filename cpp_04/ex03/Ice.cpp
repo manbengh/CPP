@@ -1,9 +1,7 @@
 #include "Ice.hpp"
 
-Ice::Ice()
-{
-    this->_type = "ice";
-}
+Ice::Ice() :AMateria("ice")
+{}
 
 Ice::Ice(const Ice &other)
 {
@@ -27,11 +25,11 @@ std::string const &Ice::getType() const
 
 AMateria *Ice::clone() const
 {
-    AMateria *tmp = new Ice(*this);
-    return (tmp);
+    // AMateria *tmp = new Ice(*this);
+    return (new Ice(*this));
 }
 
 void Ice::use(ICharacter &target)
 {
-    std::cout << "* shoots an ice bolt at " << getType() << " *" << std::endl;
+    std::cout << "* shoots an ice bolt at " << target.getName() << " *" << std::endl;
 }

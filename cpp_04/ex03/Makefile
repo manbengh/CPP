@@ -1,4 +1,5 @@
-SRC =	main.cpp 
+SRC =	main.cpp AMateria.cpp Cure.cpp Ice.cpp ICharacter.cpp\
+
 
 OBJ = $(SRC:.cpp=.o)
 

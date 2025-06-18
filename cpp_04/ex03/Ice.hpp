@@ -1,9 +1,11 @@
 #ifndef ICE_HPP
 #define ICE_HPP
 
+#pragma once
+
 #include "AMateria.hpp"
 
-class Ice
+class Ice : public AMateria
 {
     private:
         std::string _type;
