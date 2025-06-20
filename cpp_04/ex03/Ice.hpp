@@ -14,7 +14,7 @@ class Ice : public AMateria
         Ice();
         Ice(const Ice &other);
         Ice &operator=(const Ice &other);
-        ~Ice();
+        virtual ~Ice();
 
         std::string const & getType() const; //Returns the materia type
         AMateria* clone() const;

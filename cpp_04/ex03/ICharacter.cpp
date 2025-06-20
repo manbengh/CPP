@@ -9,37 +9,67 @@ Character::Character(std::string name)
         _floor[i] = NULL;
 }
 
+Character::Character(const Character &other)
+{
+    this->_name = other._name;
+
+    for (int i = 0; i < 4; i++)
+        _inventory[i] = NULL;
+    for (int i = 0; i < 60; i++)
+        _floor[i] = NULL;
+
+    for (int i = 0; i < 4; i++)
+    {
+        if (other._inventory[i])
+            _inventory[i] = other._inventory[i]->clone();
+    }
+
+    for (int i = 0; i < 60; i++)
+    {
+        if (other._floor[i])
+            _floor[i] = other._floor[i]->clone();
+    }
+}
+
+
 Character &Character::operator=(const Character &other)
 {
     if (this != &other)
     {
         this->_name = other._name;
+
         for (int i = 0; i < 4; i++)
         {
             delete _inventory[i];
+            _inventory[i] = NULL;
             if (other._inventory[i])
                 _inventory[i] = other._inventory[i]->clone();
-            else
-                _inventory[i] = NULL;
         }
+
         for (int i = 0; i < 60; i++)
         {
             delete _floor[i];
+            _floor[i] = NULL;
             if (other._floor[i])
                 _floor[i] = other._floor[i]->clone();
-            else
-                _floor[i] = NULL;
         }
     }
     return (*this);
 }
 
+
 Character::~Character()
 {
     for (int i = 0; i < 4; i++)
-        delete _inventory[i];
-    for (int i = 0; i < 4; i++)
-        delete _floor[i];
+    {
+        if (_inventory[i])
+            delete _inventory[i];
+    }
+    for (int i = 0; i < 60; i++)
+    {
+        if (_floor[i])
+            delete _floor[i];
+    }
     std::cout << "Character destroyed." << std::endl;
 }
 
@@ -69,17 +99,23 @@ void Character::equip(AMateria *m)
 
 void Character::unequip(int idx)
 {
-    if (idx < 0 || idx >= 4 || _inventory[idx] == NULL)
+    if (_floor[61])
+    {
+        std::cout << "Floor is full ! Can't unequip anymore." << std::endl;
+        return ;
+    }
+    if (idx < 0 || idx >= 4 || !_inventory[idx])
     {
         std::cout << "Invalid index or no Materia to unequip." << std::endl;
         return;
     }
     for (int i = 0; i < 60; i++)
     {
-        if (_floor[i] == NULL)
+        if (!_floor[i])
         {
             _floor[i] = _inventory[idx];
             _inventory[idx] = NULL;
+            std::cout << "Materia at index " << idx << " unequiped." << std::endl;
             return;
         }
     }
@@ -87,11 +123,9 @@ void Character::unequip(int idx)
 
 void Character::use(int idx, ICharacter &target)
 {
-    if (idx < 0 || idx < 4 || !_inventory[idx])
-    {
+    if (idx >= 0 && idx < 4 && _inventory[idx])
+        _inventory[idx]->use(target);
+    else
         std::cout << "Invalid index in use function." << std::endl;
-        return;
-    }
-    _inventory[idx]->use(target);
 }
 
