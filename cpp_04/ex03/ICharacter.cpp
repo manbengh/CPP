@@ -90,12 +90,13 @@ void Character::equip(AMateria *m)
     {
         if (!_inventory[i])
         {
-            _inventory[i] = m->clone();
+            _inventory[i] = m;
             std::cout << "Materia " << m->getType() << " equipped at index " << i << "." << std::endl;
             return;
         }
     }
     std::cout << "The inventory is full !" << std::endl;
+    // delete m;
 }
 
 void Character::unequip(int idx)
@@ -105,7 +106,6 @@ void Character::unequip(int idx)
     {
         if (_floor[i] == NULL)
         {
-            std::cout << "my i ----> " << i << std::endl;
             floorFull = false;
             break;
         }
@@ -125,7 +125,7 @@ void Character::unequip(int idx)
     {
         if (!_floor[i])
         {
-            _floor[i] = _inventory[idx]->clone();
+            _floor[i] = _inventory[idx];
             delete _inventory[idx];
             _inventory[idx] = NULL;
             std::cout << "Materia at index " << idx << " unequiped." << std::endl;

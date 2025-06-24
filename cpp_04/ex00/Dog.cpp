@@ -3,7 +3,7 @@
 Dog::Dog()
 {
     _type = "Dog";
-    std::cout << "Dod created." << std::endl;
+    std::cout << "Dog created." << std::endl;
 }
 
 Dog::Dog(const Dog &other)
