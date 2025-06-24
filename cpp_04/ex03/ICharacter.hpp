@@ -32,7 +32,7 @@ class Character : public ICharacter
         Character(std::string type);
         Character(const Character &other);
         Character &operator=(const Character &other);
-        virtual ~Character();
+        ~Character();
 
         std::string const & getName() const;
         void equip(AMateria* m);

@@ -12,7 +12,7 @@ int main()
     src->learnMateria(new Cure());
     src->learnMateria(new Ice());
     src->learnMateria(new Cure());
-    src->learnMateria(new Ice());  // materiaSource FULL
+    // src->learnMateria(new Ice());  // materiaSource FULL
 
     ICharacter* me = new Character("Arthur");
 
@@ -22,11 +22,6 @@ int main()
 
     me->equip(ice);
     me->equip(cure);
-    // for (int i = 2 ; i < 70 ; i++)
-    // {
-    //     me->equip(new Ice());
-    //     me->unequip(i);
-    // }
     me->equip(unknown);  // ignoré
 
     me->equip(NULL);
@@ -48,7 +43,8 @@ int main()
     me->use(1, *enemy);  // Slot vide (unequip)
 
     delete enemy;
-    // delete cure;
+    delete cure;
+    delete ice;
     delete me;
     delete src;
 

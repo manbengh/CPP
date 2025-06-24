@@ -88,18 +88,29 @@ void Character::equip(AMateria *m)
     }
     for (int i = 0; i < 4; i++)
     {
-        if (_inventory[i] == NULL)
+        if (!_inventory[i])
         {
-            _inventory[i] = m;
+            _inventory[i] = m->clone();
             std::cout << "Materia " << m->getType() << " equipped at index " << i << "." << std::endl;
             return;
         }
     }
+    std::cout << "The inventory is full !" << std::endl;
 }
 
 void Character::unequip(int idx)
 {
-    if (_floor[61])
+    bool floorFull = true;
+    for (int i = 0; i < 60; i++)
+    {
+        if (_floor[i] == NULL)
+        {
+            std::cout << "my i ----> " << i << std::endl;
+            floorFull = false;
+            break;
+        }
+    }
+    if (floorFull)
     {
         std::cout << "Floor is full ! Can't unequip anymore." << std::endl;
         return ;
@@ -107,13 +118,15 @@ void Character::unequip(int idx)
     if (idx < 0 || idx >= 4 || !_inventory[idx])
     {
         std::cout << "Invalid index or no Materia to unequip." << std::endl;
+        std::cout << "idx = " << idx << std::endl;
         return;
     }
     for (int i = 0; i < 60; i++)
     {
         if (!_floor[i])
         {
-            _floor[i] = _inventory[idx];
+            _floor[i] = _inventory[idx]->clone();
+            delete _inventory[idx];
             _inventory[idx] = NULL;
             std::cout << "Materia at index " << idx << " unequiped." << std::endl;
             return;

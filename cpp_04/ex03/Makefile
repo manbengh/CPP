@@ -7,7 +7,7 @@ CXX = c++
 
 NAME = Materia
 
-CXXFLAGS = -Wall -Wextra -Werror -std=c++98
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -g3
 
 all: $(NAME)
 
