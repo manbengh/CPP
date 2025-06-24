@@ -32,12 +32,9 @@ int main()
     me->use(3, *me);  // Index invalide
     me->use(42, *me); // Index invalide
 
-
     me->unequip(1);
-    // delete cure; // nécessaire si on a unequip
 
     ICharacter* enemy = new Character("Enemy");
-
 
     me->use(0, *enemy);  // Ice
     me->use(1, *enemy);  // Slot vide (unequip)
