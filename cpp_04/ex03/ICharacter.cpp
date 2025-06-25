@@ -58,20 +58,57 @@ Character &Character::operator=(const Character &other)
 }
 
 
+// Character::~Character()
+// {
+//     for (int i = 0; i < 4; i++)
+//     {
+//         if (_inventory[i])
+//             delete _inventory[i];
+//     }
+//     for (int i = 0; i < 60; i++)
+//     {
+//         if (_floor[i])
+//             delete _floor[i];
+//     }
+//     std::cout << "Character destroyed." << std::endl;
+// }
 Character::~Character()
 {
-    for (int i = 0; i < 4; i++)
-    {
-        if (_inventory[i])
-            delete _inventory[i];
-    }
+    // Delete everything in _floor that is NOT in _inventory
     for (int i = 0; i < 60; i++)
     {
         if (_floor[i])
-            delete _floor[i];
+        {
+            bool foundInInventory = false;
+            for (int j = 0; j < 4; j++)
+            {
+                if (_floor[i] == _inventory[j])
+                {
+                    foundInInventory = true;
+                    break;
+                }
+            }
+            if (!foundInInventory)
+            {
+                delete _floor[i];
+                _floor[i] = NULL;
+            }
+        }
     }
+
+    // Delete all Materias in inventory
+    for (int i = 0; i < 4; i++)
+    {
+        if (_inventory[i])
+        {
+            delete _inventory[i];
+            _inventory[i] = NULL;
+        }
+    }
+
     std::cout << "Character destroyed." << std::endl;
 }
+
 
 std::string const &Character::getName() const
 {
@@ -96,7 +133,7 @@ void Character::equip(AMateria *m)
         }
     }
     std::cout << "The inventory is full !" << std::endl;
-    // delete m;
+    delete m;
 }
 
 void Character::unequip(int idx)
@@ -126,7 +163,6 @@ void Character::unequip(int idx)
         if (!_floor[i])
         {
             _floor[i] = _inventory[idx];
-            delete _inventory[idx];
             _inventory[idx] = NULL;
             std::cout << "Materia at index " << idx << " unequiped." << std::endl;
             return;
