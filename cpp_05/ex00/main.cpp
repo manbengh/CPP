@@ -3,28 +3,48 @@
 
 int main()
 {
-    Bureaucrat bob("Bob", 42);
-    std::cout << bob;
+    try
+    {
+        Bureaucrat test1("test1", 1);
+        std::cout << test1;
+        test1.incrementGrade();
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << "Test1 : "<< e.what() <<std::endl;
+    }
+    std::cout << std::endl;
 
-    std::cout << "Incrementing grade..." << std::endl;
-    bob.incrementGrade();
-    std::cout << bob;
+    try
+    {
+        Bureaucrat test2("test2", 151);
+        std::cout << test2;
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << "Test2 : " << e.what() << std::endl;
+    }
+    std::cout << std::endl;
+    
+    try
+    {
+        Bureaucrat test3("Test3", 0);
+        std::cout << test3;
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << "Test3 : " << e.what() << std::endl;
+    }
+    std::cout << std::endl;
 
-    std::cout << "Decrementing grade..." << std::endl;
-    bob.decrementGrade();
-    std::cout << bob;
-
-    Bureaucrat low("LowLevel", 150);
-    std::cout << low;
-    std::cout << "Trying to decrement at grade 150..." << std::endl;
-    low.decrementGrade();
-    std::cout << low;
-
-    Bureaucrat high("HighLevel", 1);
-    std::cout << high;
-    std::cout << "Trying to increment at grade 1..." << std::endl;
-    high.incrementGrade();
-    std::cout << high;
-
-    return 0;
+    try
+    {
+        Bureaucrat test4("Test4", 150);
+        std::cout << test4;
+        test4.decrementGrade();
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << "Test4 : " << e.what() << std::endl;
+    }
 }
