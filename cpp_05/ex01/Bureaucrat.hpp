@@ -5,7 +5,9 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include "Form.hpp"
 
+class Form;
 class Bureaucrat
 {
     private:
@@ -38,6 +40,7 @@ class Bureaucrat
         void incrementGrade();
         void decrementGrade();
 
+        void signFrom(Form &form);
 };
 
 

@@ -66,7 +66,7 @@ void Form::beSigned(Bureaucrat &bureaucrat)
 {
     if (_signed)
         throw FormAlreadySigned();
-    if (bureaucrat.getGrade() < this->getGradeSign())
+    if (bureaucrat.getGrade() < _gradeSign)
         throw GradeTooHighException();
     _signed = true;
 }
@@ -77,7 +77,11 @@ std::ostream &operator<<(std::ostream &os, const Form &other)
     os << "Form Name :" << other.getName() << std::endl;
     os << "Form Grade Exec :" << other.getGradeExec() << std::endl;
     os << "Form Grade Sign :" << other.getGradeSign() << std::endl;
-    other.getSigned() ? os << "Yes\n" : os << "No\n";
+    // other.getSigned() ? os << "--> Yes\n" : os << "--> No\n";
+    if (other.getSigned())
+        os << "---> Yes\n";
+    else
+        os << "---> No\n";
 
     return (os);
 }
