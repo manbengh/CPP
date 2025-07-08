@@ -44,15 +44,16 @@ class AForm
                 virtual const char *what() const throw();
         };
 
-        // FormAlreadySigned
-        class AFormAlreadySigned : public std::exception
+        // FormNotSigned
+        class FormNotSigned : public std::exception
         {
             public :
                 virtual const char *what() const throw();
         };
 
-        virtual void beSigned(Bureaucrat &bureaucrat) = 0;
-        
+
+        void beSigned(Bureaucrat &bureaucrat);
+        virtual void execute(const Bureaucrat &executor) const = 0;
 
 };
 

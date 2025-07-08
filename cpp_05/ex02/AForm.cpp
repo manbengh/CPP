@@ -49,6 +49,7 @@ bool AForm::getSigned() const
 }
 
 
+// Exceptions
 const char *AForm::GradeTooHighException::what() const throw()
 {
     return ("Grade Too High");
@@ -59,7 +60,7 @@ const char *AForm::GradeTooLowException::what() const throw()
     return ("Grade Too Low");
 }
 
-const char *AForm::AFormAlreadySigned::what() const throw()
+const char *AForm::FormNotSigned::what() const throw()
 {
     return ("AForm Already Signed");
 }
@@ -67,7 +68,7 @@ const char *AForm::AFormAlreadySigned::what() const throw()
 void AForm::beSigned(Bureaucrat &bureaucrat)
 {
     if (_signed)
-        throw AFormAlreadySigned();
+        throw FormNotSigned();
     if (bureaucrat.getGrade() > _gradeSign)
         throw GradeTooLowException();
     _signed = true;

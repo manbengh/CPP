@@ -6,31 +6,25 @@
 #include <string>
 #include <fstream>
 
-#include "Bureaucrat.hpp"
+#include "AForm.hpp"
 
-class Bureaucrat;
-class PresidentialPardonForm
+// class Bureaucrat;
+class PresidentialPardonForm : public AForm
 {
     private:
-        const std::string _target;
-        bool _signed;
-        const int _gradeSign;
-        const int _gradeExec;
+        std::string _target;
 
     public:
         PresidentialPardonForm();
-        PresidentialPardonForm(std::string name, int gradeSign, int gradeExec);
+        PresidentialPardonForm(std::string target);
         PresidentialPardonForm(const PresidentialPardonForm &other);
         PresidentialPardonForm &operator=(const PresidentialPardonForm &other);
         ~PresidentialPardonForm();
 
         //Getters
-        // std::string getName() const;
-        // int getGradeSign() const;
-        // int getGradeExec() const;
-        // bool getSigned()const ;
+        std::string getTarget() const;
 
-
+        void execute(Bureaucrat const &execute) const ;
 };
 
 
