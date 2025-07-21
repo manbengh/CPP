@@ -1,9 +1,9 @@
 #include "RobotomyRequestForm.hpp"
 
-RobotomyRequestForm::RobotomyRequestForm() : AForm("Default RobotomyRequestForm", 72, 45), _target("Default")
+RobotomyRequestForm::RobotomyRequestForm() : AForm(" RobotomyRequestForm", 72, 45), _target("Default")
 {}
 
-RobotomyRequestForm::RobotomyRequestForm(std::string target) : AForm("Default RobotomyRequestForm", 72, 45), _target(target)
+RobotomyRequestForm::RobotomyRequestForm(std::string target) : AForm(" RobotomyRequestForm", 72, 45), _target(target)
 {}
 
 RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm &other) : AForm(other), _target(other.getTarget())

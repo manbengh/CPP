@@ -12,13 +12,18 @@ class Intern
 {
 
     public:
-        Intern(std::string name, int grade);
+        Intern();
         Intern(const Intern &other);
         Intern &operator=(const Intern &other);
         ~Intern();
 
-        AForm *makeForm(std::string name, std::string target);
+        AForm *makeForm(std::string name, std::string target)const;
 
+        class FormDoesNotExist : public std::exception
+        {
+            public :
+                virtual const char *what() const throw();
+        };
 
 };
 
