@@ -10,7 +10,7 @@ int main()
 
         std::cout << B1;
         std::cout << F1;
-        B1.signFrom(F1);
+        B1.signForm(F1);
         std::cout << F1;
 
     }
@@ -28,7 +28,7 @@ int main()
 
         std::cout << B2;
         std::cout << F2;
-        B2.signFrom(F2);
+        B2.signForm(F2);
         std::cout << F2;
     }
     catch (const std::exception &exp)
@@ -56,9 +56,9 @@ int main()
         Form F4("F4", 10, 60);
         std::cout << B4;
         std::cout << F4;
-        B4.signFrom(F4);
+        B4.signForm(F4);
         std::cout << F4;
-        B4.signFrom(F4);
+        B4.signForm(F4);
     }
     catch(const std::exception& e)
     {

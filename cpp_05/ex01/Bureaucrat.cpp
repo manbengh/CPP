@@ -1,5 +1,11 @@
 #include "Bureaucrat.hpp"
 
+Bureaucrat::Bureaucrat()
+{
+    _name = "Default";
+    _grade = 150;
+}
+
 Bureaucrat::Bureaucrat(std::string name, int grade)
 {
     _name = name;
@@ -68,7 +74,7 @@ void Bureaucrat::decrementGrade()
     _grade++;
 }
 
-void Bureaucrat::signFrom(Form &form)
+void Bureaucrat::signForm(Form &form)
 {
     try 
     {

@@ -28,7 +28,7 @@ class PresidentialPardonForm : public AForm
 };
 
 
-std::ostream &operator<<(std::ostream &os, const PresidentialPardonForm &other);
+// std::ostream &operator<<(std::ostream &os, const PresidentialPardonForm &other);
 
 
 #endif

@@ -31,7 +31,7 @@ class RobotomyRequestForm : public AForm
 };
 
 
-std::ostream &operator<<(std::ostream &os, const RobotomyRequestForm &other);
+// std::ostream &operator<<(std::ostream &os, const RobotomyRequestForm &other);
 
 
 #endif

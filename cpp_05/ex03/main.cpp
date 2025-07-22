@@ -18,13 +18,17 @@ int main()
         AForm *presidentialForm = intern.makeForm("presidential pardon", "presidents");
 
         std::cout << std::endl;
-        a.signFrom(*shrubberyForm);
-        b.signFrom(*robotomyForm);
-        c.signFrom(*presidentialForm);
+        a.signForm(*shrubberyForm);
+        b.signForm(*robotomyForm);
+        c.signForm(*presidentialForm);
         std::cout << std::endl;
 
+        delete(shrubberyForm);
+        delete(robotomyForm);
+        delete(presidentialForm);
+
         AForm *fakeForm = intern.makeForm("test", "myTest");
-        a.signFrom(*fakeForm);
+        a.signForm(*fakeForm);
     }
 
     catch(const std::exception& e)

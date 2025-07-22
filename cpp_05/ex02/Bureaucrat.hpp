@@ -15,6 +15,7 @@ class Bureaucrat
         int _grade;
 
     public:
+        Bureaucrat();
         Bureaucrat(std::string name, int grade);
         Bureaucrat(const Bureaucrat &other);
         Bureaucrat &operator=(const Bureaucrat &other);
@@ -40,7 +41,7 @@ class Bureaucrat
         void incrementGrade();
         void decrementGrade();
 
-        void signFrom(AForm &Aform);
+        void signForm(AForm &Aform);
         void executeForm(AForm const &form);
 };
 

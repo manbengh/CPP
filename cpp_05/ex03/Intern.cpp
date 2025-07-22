@@ -31,7 +31,6 @@ AForm *Intern::makeForm(std::string name, std::string target) const
         if (name ==allFroms[i])
             break;
     }
-
     switch (i)
     {
         case 0:

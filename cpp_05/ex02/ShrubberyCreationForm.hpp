@@ -29,7 +29,7 @@ class ShrubberyCreationForm : public AForm
 };
 
 
-std::ostream &operator<<(std::ostream &os, const ShrubberyCreationForm &other);
+// std::ostream &operator<<(std::ostream &os, const ShrubberyCreationForm &other);
 
 
 #endif
