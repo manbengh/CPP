@@ -11,7 +11,7 @@ int main()
     {
         std::cout << "--- Shrubbery Test 1 ---" << std::endl;
         Bureaucrat B1("B1", 50);
-        ShrubberyCreationForm form("myForm1");
+        ShrubberyCreationForm form("CHARGER");
         form.beSigned(B1);
         form.execute(B1);
         std::cout << "ShrubberyCreationForm executed !" << std::endl; 

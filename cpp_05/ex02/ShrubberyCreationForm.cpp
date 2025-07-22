@@ -53,6 +53,6 @@ void ShrubberyCreationForm::execute(Bureaucrat const &executor) const
                 "   .....//||||\\....\n";
     }
     else
-        std::cout << "Failed to open file :" << fileName << std::endl;
+        std::cout << "Failed to open file : " << fileName << std::endl;
     file.close();
 }
