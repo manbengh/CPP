@@ -9,21 +9,18 @@
 #include <ctime>
 #include <cstdlib>
 
-// class Bureaucrat;
 
 class ScalarConverter
 {
-    public:
+    private :
         ScalarConverter();
         ScalarConverter(const ScalarConverter &other);
         ScalarConverter &operator=(const ScalarConverter &other);
         ~ScalarConverter();
 
-        void convert(const std::string &conv);
+    public :
+        static void convert(const std::string &conv);
 };
-
-
-// std::ostream &operator<<(std::ostream &os, const ScalarConverter &other);
 
 
 #endif
