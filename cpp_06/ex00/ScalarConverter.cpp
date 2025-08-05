@@ -54,6 +54,14 @@ bool isDouble(const std::string &str)
     return false;
 }
 
+bool isWord(const std::string &str)
+{
+    std::cout << "isWord !!" << std::endl;
+    if (str.length() != 1)
+        return false;
+    return true;
+}
+
 int checkType(const std::string &str)
 {
     if (isChar(str))
@@ -69,7 +77,7 @@ int checkType(const std::string &str)
     return 0;
 }
 
-void printImpo(const std::string &str)
+void printImposs(const std::string &str)
 {
     if (str == "nanf" || str == "nan")
 	{
@@ -102,6 +110,42 @@ void printImpo(const std::string &str)
 }
 
 
+void displayChar(const std::string &str)
+{
+    char c = str[0];
+    std::cout << "char: '" << str << "'" << std::endl;
+    std::cout << "int: " << static_cast<int>(c) << std::endl;
+    std::cout << "float: " << static_cast<float>(c) << "f" << std::endl;
+    std::cout << "double: " << static_cast<double>(c) << ".0" << std::endl;
+}
+
+void displayInt(const std::string &str)
+{
+    long l = std::atol(str.c_str());
+    char c = static_cast<char>(l);
+
+    if (std::isprint(c) && l > 0 && l < 127)
+        std::cout << "char: '" << static_cast<char>(l) << "'" << std::endl;
+    else
+        std::cout << "char: Non displayable" << std::endl;
+    std::cout << "int: " << l << std::endl;
+    std::cout << "float: " << static_cast<float>(l) << "f" << std::endl;
+    std::cout << "double: " << static_cast<double>(l) << ".0" << std::endl;
+}
+
+void displayFloat(const std::string &str)
+{
+    float f = std::atof(str.c_str());
+
+    if (std::isprint(static_cast<char>(f)))
+        std::cout << "char: '" << static_cast<char>(f) << "'" << std::endl;
+    else
+        std::cout << "char: Non displayable" << std::endl;
+    std::cout << "int: " << static_cast<int>(f) << std::endl;
+    std::cout << "float: " << f << std::endl;
+    std::cout << "double: " << static_cast<double>(f) << std::endl;
+}
+
 void ScalarConverter::convert(const std::string &str)
 {
     if (str.empty())
@@ -113,19 +157,19 @@ void ScalarConverter::convert(const std::string &str)
     switch (i)
     {
         case 1 :
-            std::cout << "is Char" << std::endl;
+            displayChar(str);
             break;
         case 2 :
-            std::cout << "is Int" << std::endl;
+            displayInt(str);
             break;
         case 3 :
-            std::cout << "is Float" << std::endl;
+            displayFloat(str);
             break;
         case 4 :
             std::cout << "is Double" << std::endl;
             break;
         case 5 :
-            printImpo(str);
+            printImposs(str);
             break;
         default:
             std::cout << "Non displayable character." << std::endl;
