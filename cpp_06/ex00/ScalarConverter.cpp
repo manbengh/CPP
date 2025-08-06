@@ -129,8 +129,8 @@ void displayInt(const std::string &str)
     else
         std::cout << "char: Non displayable" << std::endl;
     std::cout << "int: " << l << std::endl;
-    std::cout << "float: " << static_cast<float>(l) << "f" << std::endl;
-    std::cout << "double: " << static_cast<double>(l) << ".0" << std::endl;
+    std::cout << "float: "<< std::fixed << std::setprecision(1) << static_cast<float>(l) << "f" << std::endl;
+    std::cout << "double: " << std::fixed << std::setprecision(1) << static_cast<double>(l) << std::endl;
 }
 
 void displayFloat(const std::string &str)
@@ -141,10 +141,24 @@ void displayFloat(const std::string &str)
         std::cout << "char: '" << static_cast<char>(f) << "'" << std::endl;
     else
         std::cout << "char: Non displayable" << std::endl;
-    std::cout << "int: " << static_cast<int>(f) << std::endl;
+    std::cout << "int: " << std::fixed << std::setprecision(1) << static_cast<int>(f) << std::endl;
     std::cout << "float: " << f << std::endl;
-    std::cout << "double: " << static_cast<double>(f) << std::endl;
+    std::cout << "double: " << std::fixed << std::setprecision(1) << static_cast<double>(f) << std::endl;
 }
+
+void displayDouble(const std::string &str)
+{
+    double d =std::atof(str.c_str());
+
+    if (std::isprint(static_cast<char>(d)))
+        std::cout << "char: '" << static_cast<char>(d) << "'" << std::endl;
+    else
+        std::cout << "char: Non displayable" << std::endl;
+    std::cout << "int: " << std::fixed << std::setprecision(1) << static_cast<int>(d) << std::endl;
+    std::cout << "float: " << std::fixed << std::setprecision(1) << static_cast<float>(d) << std::endl;
+    std::cout << "double: " << d << std::endl;
+}
+
 
 void ScalarConverter::convert(const std::string &str)
 {
@@ -166,7 +180,7 @@ void ScalarConverter::convert(const std::string &str)
             displayFloat(str);
             break;
         case 4 :
-            std::cout << "is Double" << std::endl;
+            displayDouble(str);
             break;
         case 5 :
             printImposs(str);
