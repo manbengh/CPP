@@ -38,7 +38,24 @@ bool isInt(const std::string &str)
 
 bool isFloat(const std::string &str)
 {
+    int dot = 0;
+    int f = 0;
+    size_t i = 0;
+
+    if (str[i] == '+' || str[i] == '-')
+        i++;
+    for (;i < str.length(); i++)
+    {
+        if (str[i] == '.')
+            dot++;
+        if (str[i] == 'f')
+            f++;
+        if (!isdigit(str[i]) && str[i] != '.' && str[i] != 'f')
+            return false;
+    }
     if (str[str.length() - 1] == 'f')
+        return true;
+    if (f == 1 || dot == 1)
         return true;
     return false;
 }
@@ -142,7 +159,7 @@ void displayFloat(const std::string &str)
     else
         std::cout << "char: Non displayable" << std::endl;
     std::cout << "int: " << std::fixed << std::setprecision(1) << static_cast<int>(f) << std::endl;
-    std::cout << "float: " << f << std::endl;
+    std::cout << "float: " << f << 'f' << std::endl;
     std::cout << "double: " << std::fixed << std::setprecision(1) << static_cast<double>(f) << std::endl;
 }
 
@@ -186,7 +203,10 @@ void ScalarConverter::convert(const std::string &str)
             printImposs(str);
             break;
         default:
-            std::cout << "Non displayable character." << std::endl;
+            std::cout << "char : impossible" << std::endl;
+            std::cout << "int : impossible" << std::endl;
+            std::cout << "float : impossible" << std::endl;
+            std::cout << "double : impossible" << std::endl;
             break;
     }
 }
