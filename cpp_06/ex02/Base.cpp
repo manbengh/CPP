@@ -3,23 +3,18 @@
 
 Base *generate(void)
 {
-    // Base *res = NULL;
-
     std::srand(std::time(0));
     int random = std::rand() % 3;
 
     switch (random)
     {
         case 0 :
-            // std::cout << "A created !" << std::endl;
             return (new A);
 
         case 1 :
-            // std::cout << "B created !" << std::endl;
             return (new B);
 
         case 2 :
-            // std::cout << "C created !" << std::endl;
             return (new C);
     }
     return NULL;
