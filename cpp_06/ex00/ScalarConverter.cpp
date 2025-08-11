@@ -21,7 +21,7 @@ ScalarConverter::~ScalarConverter()
 
 bool isChar(const std::string &str)
 {
-    if (str.length() == 1 && isalpha(str[0]))
+    if (str.length() == 1 && !isdigit(str[0]))
         return true;
     return false;
 }
@@ -31,6 +31,9 @@ bool isInt(const std::string &str)
     char *end;
 
     std::strtol(str.c_str(), &end, 10);
+    
+    if (std::strtol(str.c_str(), &end, 10) < INT_MIN || std::strtol(str.c_str(), &end, 10) > INT_MAX)
+        return false;
     if (*end != '\0')
         return false;
     return true;
@@ -158,9 +161,9 @@ void displayFloat(const std::string &str)
         std::cout << "char: '" << static_cast<char>(f) << "'" << std::endl;
     else
         std::cout << "char: Non displayable" << std::endl;
-    std::cout << "int: " << std::fixed << std::setprecision(1) << static_cast<int>(f) << std::endl;
+    std::cout << "int: "  << static_cast<int>(f) << std::endl;
     std::cout << "float: " << f << 'f' << std::endl;
-    std::cout << "double: " << std::fixed << std::setprecision(1) << static_cast<double>(f) << std::endl;
+    std::cout << "double: "  << static_cast<double>(f) << std::endl;
 }
 
 void displayDouble(const std::string &str)
@@ -171,7 +174,7 @@ void displayDouble(const std::string &str)
         std::cout << "char: '" << static_cast<char>(d) << "'" << std::endl;
     else
         std::cout << "char: Non displayable" << std::endl;
-    std::cout << "int: " << std::fixed << std::setprecision(1) << static_cast<int>(d) << std::endl;
+    std::cout << "int: " << static_cast<int>(d) << std::endl;
     std::cout << "float: " << std::fixed << std::setprecision(1) << static_cast<float>(d) << std::endl;
     std::cout << "double: " << d << std::endl;
 }

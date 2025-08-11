@@ -9,6 +9,8 @@
 #include <ctime>
 #include <iomanip>
 #include <cstdlib>
+#include <climits>
+
 
 
 class ScalarConverter
