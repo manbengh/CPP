@@ -7,13 +7,13 @@ int main()
     std::cout << array.size() << std::endl;
     std::cout << copyArr.size() << std::endl;
 
-    try
-    {
+    // try
+    // {
         
-    }
-    catch(const std::exception& e)
-    {
-        std::cerr << e.what() << '\n';
-    }
+    // }
+    // catch(const std::exception& e)
+    // {
+    //     std::cerr << e.what() << '\n';
+    // }
     
 }
