@@ -10,24 +10,24 @@ class Array
 {
     private :
         T *_array;
-        int _size;
+        unsigned int _size;
     
     public :
         Array(): _array(new T[0]), _size(0){};
         Array(unsigned int n) : _array(new T[n]), _size(n){};
         Array(const Array &other) : _array(new T[other._size]), _size(other._size)
         {
-            for (int i = 0; i < this->_size; i++)
+            for (unsigned int i = 0; i < this->_size; i++)
                 this->_array[i] = other._array[i];
         };
         Array &operator=(const Array &other)
         {
-            if (this != other)
+            if (this != &other)
             {
-                _array(new T[other._size]);
-                _size(other._size);
                 delete[] this->_array;
-                for (int i = 0; i < this->_size; i++)
+                this->_array = new T[other._size];
+                this->_size = other._size;
+                for (unsigned int i = 0; i < this->_size; i++)
                     this->_array[i] = other._array[i];
             }
             return (*this);
@@ -50,7 +50,7 @@ class Array
 
         T &operator[](const unsigned int n)
         {
-            if (n >= _size || n < 0)
+            if (n >= _size)
                 throw OutOfRange();
             return (this->_array[n]);
         };

@@ -18,4 +18,6 @@ int main()
     std::cout << "\n";
     iter(dTab, 1, myPrint<double>);
     std::cout << "\n";
+    
+    return (0);
 }
