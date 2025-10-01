@@ -58,28 +58,42 @@ void printTest(std::vector<int> test)
 
 int Span::longestSpan()
 {
-    if (this->_vec.size() < 1)
-    {
+    if (this->_vec.size() < 2)
         throw Empty();
-    }
     std::vector<int> tmp = _vec;
     std::sort(tmp.begin(), tmp.end());
-    printTest(tmp);
-    int myMin = 0;
+    return (tmp.back() - tmp.front());
+}
+
+int Span::shortestSpan()
+{
+    if (this->_vec.size() < 2)
+        throw Empty();
+    std::vector<int> tmp = _vec;
+    std::sort(tmp.begin(), tmp.end());
 
     std::vector<int>::iterator it1 = tmp.begin();
-    std::vector<int>::iterator it2 = it1++;
-
-    std::cout << "it1 --> " << *it1 << "   it2 --> " << *it2<<std::endl;
-    printTest(tmp);
+    std::vector<int>::iterator it2 = it1;
+    it2++;
+    int myMin = *it2 - *it1;
     while (it2 != tmp.end())
     {
-        std::cout << "\nmyMin == " << myMin << std::endl;
         if (myMin > *it2 - *it1)
             myMin = *it2 - *it1;
         it2++;
         it1++;
     }
+    return (myMin);
+}
 
-    return myMin;
+
+void Span::rangeIterators(std::vector<int>::iterator begin, std::vector<int>::iterator end)
+{
+    while (begin != end)
+    {
+        this->addNumber(*begin);
+        // std::cout << "range --> " << *begin << std::endl;
+        begin++;
+    }
+    // printTest(*begin);
 }

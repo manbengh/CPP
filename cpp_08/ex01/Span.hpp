@@ -23,9 +23,9 @@ class Span
         void printV();
 
         void addNumber(int N);
-        // int shortestSpan();
+        int shortestSpan();
         int longestSpan();
-
+        void rangeIterators(std::vector<int>::iterator begin, std::vector<int>::iterator end);
 
         //Exceptions
         class Full : public std::exception
