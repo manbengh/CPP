@@ -4,7 +4,7 @@ OBJ = $(SRC:.cpp=.o)
 
 CXX = c++
 
-NAME = Span
+NAME = Span 
 
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -g3
 

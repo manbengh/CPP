@@ -97,3 +97,4 @@ void Span::rangeIterators(std::vector<int>::iterator begin, std::vector<int>::it
     }
     // printTest(*begin);
 }
+
