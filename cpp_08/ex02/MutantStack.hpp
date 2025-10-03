@@ -12,37 +12,37 @@ template<typename T>
 
 class MutantStack : public std::stack<T>
 {
-    private :
-        std::stack<T> _s;
-        
     public:
         MutantStack(){};
-        ~MutantStack(){};
-        MutantStack(const MutantStack &other){
-            this->_s = other._s;
-        };
+        MutantStack(const MutantStack &other) : std::stack<T>(other){};
         MutantStack &operator=(const MutantStack &other){
-            if (this != &other)
-                this->_s = other._s;
-            return this;
+            if (this != other)
+                std::stack<T>::operator=(other);
+            return *this;
         };
+        ~MutantStack(){};
 
         typedef typename std::stack<T>::container_type::iterator iterator;
 
+        // typename std::stack<T>::container_type::iterator begin()
+        // {
+        //     return (std::stack<T, typename std::stack<T>::container_type>::c.begin());
+        // };
+
+        // typename std::stack<T>::container_type::iterator end()
+        // {
+        //     return (std::stack<T, typename std::stack<T>::container_type>::c.end());
+        // };
+
         typename std::stack<T>::container_type::iterator begin()
         {
-            return (std::stack<T, typename std::stack<T>::container_type>::c.begin());
+            return (this->c.begin());
         };
 
         typename std::stack<T>::container_type::iterator end()
         {
-            return (std::stack<T, typename std::stack<T>::container_type>::c.end());
+            return (this->c.end());
         };
-
-
-
-
-        
 };
 
 #endif
