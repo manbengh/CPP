@@ -1,26 +1,5 @@
 #include "MutantStack.hpp"
 
-// int main()
-// {
-//     MutantStack<int> test;
-
-//     std::vector<int>::iterator;
-
-//     MutantStack<int>::iterator iter = test.begin();
-
-//     // std::stack<int> test;
-
-    
-//     for (int i = 1; i < 6; i++)
-//     {
-//         test.push(i);
-//         std::cout << ;
-//     }
-
-//     std::cout << "begin --> " << *test.begin() << std::endl;
-//     std::cout << "end --> "<< *test.end() << std::endl;
-
-// }
 
 int main()
 {
