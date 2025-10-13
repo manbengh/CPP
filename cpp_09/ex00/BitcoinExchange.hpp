@@ -11,6 +11,6 @@
 // std::map
 
 void check_args(int argc, char **argv);
-void checkData(std::map<std::string, double> &myData, char &argv);
+void checkData(std::map<std::string, double> &myData, std::ifstream &myFile);
 
 #endif

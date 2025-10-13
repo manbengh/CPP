@@ -7,7 +7,8 @@ int main(int argc, char **argv)
     {
         check_args(argc, argv);
         std::map<std::string, double> myData;
-        checkData(myData, argv[1]);
+        std::ifstream myFile(argv[1]);
+        checkData(myData, myFile);
     }
 
 
