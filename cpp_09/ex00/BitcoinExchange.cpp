@@ -18,12 +18,38 @@ void checkData(std::map<std::string, double> &myData, std::ifstream &myFile)
 
     while (std::getline(myFile, line))
     {
-        if (line.empty() && i == 0)
+        if (line.empty())
+            continue;
+
+        // IGNORER 1ERE LINE
+        if (i == 0 && line.find("date") != std::string::npos) 
         {
-            myFile.close();
-            throw std::out_of_range("File is empty !");
+            std::cout << line << std::endl;
+            i++;
+            continue;
         }
-        myData.insert(std::pair<int, std::string>(i, line));
+
+        size_t pos = line.find(',');
+        if (pos == std::string::npos) // NOT FOUND
+        {
+            std::cout << "Ligne ignorée (pas de séparateur) : " << line << std::endl;
+            continue;
+        }
+
+        std::string myKey = line.substr(0, pos);
+        std::string myValue = line.substr(pos + 1);
+
+        std::stringstream ss(myValue);
+        double myDValue;
+        ss >> myDValue;
+        if (ss.fail())
+        {
+            std::cout << "Invalid Value in line --> " << line << std::endl;
+            continue ;
+        }
+        myData[myKey] = myDValue;
+
         i++;
     }
 }
+
