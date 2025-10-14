@@ -1,6 +1,6 @@
 #include "BitcoinExchange.hpp"
 
-void check_args(int argc, char **argv)
+void checkArgs(int argc, char **argv)
 {
     if (argc != 2)
         throw std::out_of_range("Wrong number of arguments !");
@@ -11,12 +11,12 @@ void check_args(int argc, char **argv)
 
 }
 
-void checkData(std::map<std::string, double> &myData, std::ifstream &myFile)
+void checkData(std::map<std::string, double> &myData, std::ifstream &dataFile)
 {
     std::string line;
     int i = 0;
 
-    while (std::getline(myFile, line))
+    while (std::getline(dataFile, line))
     {
         if (line.empty())
             continue;
@@ -53,3 +53,17 @@ void checkData(std::map<std::string, double> &myData, std::ifstream &myFile)
     }
 }
 
+void compareData(std::map<std::string, double> &myData, std::ifstream &myFile)
+{
+    std::map<std::string, double> fileData;
+    std::string fileLine;
+
+    // while (std::getline())
+    // {
+    //     if (parseLine() == 1)
+    //     {
+    //         std::cout << "Error !\n";
+    //         continue ;
+    //     }
+    // }
+}

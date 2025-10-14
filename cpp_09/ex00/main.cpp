@@ -5,10 +5,12 @@ int main(int argc, char **argv)
 {
     try
     {
-        check_args(argc, argv);
+        checkArgs(argc, argv);
         std::map<std::string, double> myData;
+        std::ifstream dataFile("data.csv");
+        checkData(myData, dataFile);
         std::ifstream myFile(argv[1]);
-        checkData(myData, myFile);
+        compareData(myData, myFile);
     }
 
 
