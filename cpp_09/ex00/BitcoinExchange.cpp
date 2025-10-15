@@ -32,7 +32,7 @@ void checkData(std::map<std::string, double> &myData, std::ifstream &dataFile)
         size_t pos = line.find(',');
         if (pos == std::string::npos) // NOT FOUND
         {
-            std::cout << "Ligne ignorée (pas de séparateur) : " << line << std::endl;
+            std::cout << "Line ignored (no ',') : " << line << std::endl;
             continue;
         }
 
@@ -53,17 +53,56 @@ void checkData(std::map<std::string, double> &myData, std::ifstream &dataFile)
     }
 }
 
+void printError(std::string err)
+{
+    std::cout << "Error : " << err << std::endl;
+}
+
+int parseLine(std::string &fileLine, std::map<std::string, double> &myFileMap)
+{
+    size_t pos = fileLine.find('|');
+    if (pos == std::string::npos) // NOT FOUND
+    {
+        std::cout << "Line ignored (no '|') : " << fileLine << std::endl;
+        return 1;
+    }
+    std::string keyFile = fileLine.substr(0, pos);
+    std::string valFile = fileLine.substr(pos + 1);
+
+    std::stringstream ss(valFile);
+    double DValFile;
+    ss >> DValFile;
+    if (ss.fail())
+    {
+        std::cout << "Invalid Value in line --> " << fileLine << std::endl;
+        return 1;
+    }
+    
+    if (DValFile <= 0)
+        return (printError("Not a positive number."), 1);
+    if (DValFile >= 2147483647)
+        return (printError("Too large a number."), 1);
+    
+    // std::cout << keyFile << " --> " << DValFile << std::endl;
+    
+    myFileMap[keyFile] = DValFile;
+    // std::cout << keyFile << " --> " << DValFile << std::endl; 
+
+    return (0);
+}
+
 void compareData(std::map<std::string, double> &myData, std::ifstream &myFile)
 {
-    std::map<std::string, double> fileData;
+    std::map<std::string, double> myFileMap;
     std::string fileLine;
 
-    // while (std::getline())
-    // {
-    //     if (parseLine() == 1)
-    //     {
-    //         std::cout << "Error !\n";
-    //         continue ;
-    //     }
-    // }
+    (void)myData;
+    while (std::getline(myFile, fileLine))
+    {
+        if (parseLine(fileLine, myFileMap) == 1)
+            continue ;
+        std::map<std::string, double>::iterator it = myFileMap.begin();
+            std::cout << it->first << " ---- " << it->second << std::endl;
+        }
+
 }
