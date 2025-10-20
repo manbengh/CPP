@@ -58,12 +58,61 @@ void printError(std::string err)
     std::cout << "Error : " << err << std::endl;
 }
 
+
+int isDateCorr(std::string keyFile)
+{
+    // std::cout << "\nkeyFile =============> " << keyFile << std::endl;
+    if (keyFile.size() != 11)
+        return (1);
+    for (int i = 0; i < 10; i++)
+    {
+        if (i == 4 || i == 7)
+        {
+            if (keyFile[i] != '-')
+                return (1);
+        }
+        else if (!isdigit(keyFile[i]))
+            return (1);
+    }
+
+    std::stringstream ss;
+    std::string year, month, day;
+    ss << keyFile;
+    if (std::getline(ss, year, '-') && std::getline(ss, month, '-') && std::getline(ss, day, '-'))
+    {
+        int Y = std::atoi(year.c_str());
+        int M = std::atoi(month.c_str());
+        int D = std::atoi(day.c_str());
+
+        if (M >= 1 && M <= 12 && D >= 1 && D <= 31)
+        {
+            if (!(M == 4 || M == 6 || M == 9 || M == 11) && D > 30)
+                return (1);
+            if (M == 2 && D > 29)
+                return (1);
+            // bissextile
+            if (M == 2 && D == 29)
+            {
+                if (!(Y % 4 == 0 && Y % 100 != 0) || (Y % 400 == 0))
+                    return (1);
+            }
+        }
+    }
+    return (0);
+}
+
+int isValCorr(double DValFile)
+{
+    (void)DValFile;
+    return (0);
+}
+
 int parseLine(std::string &fileLine, std::map<std::string, double> &myFileMap)
 {
     size_t pos = fileLine.find('|');
     if (pos == std::string::npos) // NOT FOUND
     {
-        std::cout << "Line ignored (no '|') : " << fileLine << std::endl;
+        std::cout << "Error : bad input (no '|') : " << fileLine << std::endl;
         return 1;
     }
     std::string keyFile = fileLine.substr(0, pos);
@@ -86,10 +135,15 @@ int parseLine(std::string &fileLine, std::map<std::string, double> &myFileMap)
     // std::cout << keyFile << " --> " << DValFile << std::endl;
     
     myFileMap[keyFile] = DValFile;
-    // std::cout << keyFile << " --> " << DValFile << std::endl; 
-
+    if (isDateCorr(keyFile) || isValCorr(DValFile))
+        return (printError("bad input -> " + fileLine),1);
+    
+    std::cout << keyFile << " -----------> " << DValFile << std::endl;
     return (0);
 }
+
+
+
 
 void compareData(std::map<std::string, double> &myData, std::ifstream &myFile)
 {
@@ -99,10 +153,10 @@ void compareData(std::map<std::string, double> &myData, std::ifstream &myFile)
     (void)myData;
     while (std::getline(myFile, fileLine))
     {
-        if (parseLine(fileLine, myFileMap) == 1)
+        if (parseLine(fileLine, myFileMap))
             continue ;
-        std::map<std::string, double>::iterator it = myFileMap.begin();
-            std::cout << it->first << " ---- " << it->second << std::endl;
-        }
+        // std::map<std::string, double>::iterator it = myFileMap.begin();
+        // std::cout << it->first << " ---- " << it->second << std::endl;
+    }
 
 }
