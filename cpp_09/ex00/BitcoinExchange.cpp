@@ -86,7 +86,7 @@ int isDateCorr(std::string keyFile)
 
         if (M >= 1 && M <= 12 && D >= 1 && D <= 31)
         {
-            if (!(M == 4 || M == 6 || M == 9 || M == 11) && D > 30)
+            if ((M == 4 || M == 6 || M == 9 || M == 11) && D > 30)
                 return (1);
             if (M == 2 && D > 29)
                 return (1);
