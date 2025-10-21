@@ -58,8 +58,7 @@ void printError(std::string err)
     std::cout << "Error : " << err << std::endl;
 }
 
-
-int isDateCorr(std::string keyFile)
+ int isDateCorr(std::string keyFile)
 {
     // std::cout << "\nkeyFile =============> " << keyFile << std::endl;
     if (keyFile.size() != 11)
@@ -84,26 +83,31 @@ int isDateCorr(std::string keyFile)
         int M = std::atoi(month.c_str());
         int D = std::atoi(day.c_str());
 
+        // std::cout << "Y = " << Y << "\nM = " << M << "\nD = " << D << std::endl;
         if (M >= 1 && M <= 12 && D >= 1 && D <= 31)
         {
             if ((M == 4 || M == 6 || M == 9 || M == 11) && D > 30)
-                return (1);
+                return (printError("bad input -> " + keyFile),1);
             if (M == 2 && D > 29)
-                return (1);
+                return (printError("bad input -> " + keyFile),1);
             // bissextile
             if (M == 2 && D == 29)
             {
-                if (!(Y % 4 == 0 && Y % 100 != 0) || (Y % 400 == 0))
-                    return (1);
+                if (!(Y % 4 == 0 && (Y % 100 != 0 || Y % 400 == 0)))
+                    return (printError("bad input -> " + keyFile),1);
             }
+            return 0;
         }
     }
-    return (0);
+    return (printError("bad input -> " + keyFile),1);
 }
 
 int isValCorr(double DValFile)
 {
-    (void)DValFile;
+    if (DValFile <= 0)
+        return (printError("Not a positive number."), 1);
+    if (DValFile > 2147483647)
+        return (printError("Too large a number."), 1);
     return (0);
 }
 
@@ -115,8 +119,12 @@ int parseLine(std::string &fileLine, std::map<std::string, double> &myFileMap)
         std::cout << "Error : bad input (no '|') : " << fileLine << std::endl;
         return 1;
     }
+
     std::string keyFile = fileLine.substr(0, pos);
     std::string valFile = fileLine.substr(pos + 1);
+
+    if (fileLine.find("date") != std::string::npos && fileLine.find("value") != std::string::npos)
+        return (1);
 
     std::stringstream ss(valFile);
     double DValFile;
@@ -126,19 +134,14 @@ int parseLine(std::string &fileLine, std::map<std::string, double> &myFileMap)
         std::cout << "Invalid Value in line --> " << fileLine << std::endl;
         return 1;
     }
-    
-    if (DValFile <= 0)
-        return (printError("Not a positive number."), 1);
-    if (DValFile >= 2147483647)
-        return (printError("Too large a number."), 1);
-    
+   
     // std::cout << keyFile << " --> " << DValFile << std::endl;
-    
-    myFileMap[keyFile] = DValFile;
+   
     if (isDateCorr(keyFile) || isValCorr(DValFile))
-        return (printError("bad input -> " + fileLine),1);
-    
-    std::cout << keyFile << " -----------> " << DValFile << std::endl;
+        return (1);
+
+    myFileMap[keyFile] = DValFile;
+    std::cout << keyFile << " ==> " << DValFile << std::endl;
     return (0);
 }
 
@@ -158,5 +161,4 @@ void compareData(std::map<std::string, double> &myData, std::ifstream &myFile)
         // std::map<std::string, double>::iterator it = myFileMap.begin();
         // std::cout << it->first << " ---- " << it->second << std::endl;
     }
-
 }
