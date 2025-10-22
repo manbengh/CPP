@@ -24,13 +24,13 @@ void checkData(std::map<std::string, double> &myData, std::ifstream &dataFile)
         // IGNORER 1ERE LINE
         if (i == 0 && line.find("date") != std::string::npos) 
         {
-            std::cout << line << std::endl;
+            // std::cout << line << std::endl;
             i++;
             continue;
         }
 
         size_t pos = line.find(',');
-        if (pos == std::string::npos) // NOT FOUND
+        if (pos == std::string::npos) // PAS FOUND
         {
             std::cout << "Line ignored (no ',') : " << line << std::endl;
             continue;
@@ -62,16 +62,16 @@ void printError(std::string err)
 {
     // std::cout << "\nkeyFile =============> " << keyFile << std::endl;
     if (keyFile.size() != 11)
-        return (1);
+        return (printError("bad input => " + keyFile),1);
     for (int i = 0; i < 10; i++)
     {
         if (i == 4 || i == 7)
         {
             if (keyFile[i] != '-')
-                return (1);
+                return (printError("bad input => " + keyFile),1);
         }
         else if (!isdigit(keyFile[i]))
-            return (1);
+            return (printError("bad input => " + keyFile),1);
     }
 
     std::stringstream ss;
@@ -87,19 +87,19 @@ void printError(std::string err)
         if (M >= 1 && M <= 12 && D >= 1 && D <= 31)
         {
             if ((M == 4 || M == 6 || M == 9 || M == 11) && D > 30)
-                return (printError("bad input -> " + keyFile),1);
+                return (printError("bad input => " + keyFile),1);
             if (M == 2 && D > 29)
-                return (printError("bad input -> " + keyFile),1);
+                return (printError("bad input => " + keyFile),1);
             // bissextile
             if (M == 2 && D == 29)
             {
                 if (!(Y % 4 == 0 && (Y % 100 != 0 || Y % 400 == 0)))
-                    return (printError("bad input -> " + keyFile),1);
+                    return (printError("bad input => " + keyFile),1);
             }
             return 0;
         }
     }
-    return (printError("bad input -> " + keyFile),1);
+    return (printError("bad input => " + keyFile),1);
 }
 
 int isValCorr(double DValFile)
@@ -113,6 +113,8 @@ int isValCorr(double DValFile)
 
 int parseLine(std::string &fileLine, std::map<std::string, double> &myFileMap)
 {
+    if (fileLine.empty())
+            return 1;
     size_t pos = fileLine.find('|');
     if (pos == std::string::npos) // NOT FOUND
     {
@@ -134,31 +136,38 @@ int parseLine(std::string &fileLine, std::map<std::string, double> &myFileMap)
         std::cout << "Invalid Value in line --> " << fileLine << std::endl;
         return 1;
     }
-   
-    // std::cout << keyFile << " --> " << DValFile << std::endl;
-   
+
     if (isDateCorr(keyFile) || isValCorr(DValFile))
         return (1);
 
     myFileMap[keyFile] = DValFile;
-    std::cout << keyFile << " ==> " << DValFile << std::endl;
     return (0);
 }
 
-
+double getClosestDate(std::map<std::string, double> &myData, std::string theDate)
+{
+    std::map<std::string, double>::iterator it = myData.lower_bound(theDate);
+    if (it == myData.end())
+        --it;
+    else if (it->first != theDate && it != myData.begin())
+        --it;
+    return it->second;
+}
 
 
 void compareData(std::map<std::string, double> &myData, std::ifstream &myFile)
 {
-    std::map<std::string, double> myFileMap;
     std::string fileLine;
 
-    (void)myData;
     while (std::getline(myFile, fileLine))
     {
+        std::map<std::string, double> myFileMap;
         if (parseLine(fileLine, myFileMap))
             continue ;
-        // std::map<std::string, double>::iterator it = myFileMap.begin();
-        // std::cout << it->first << " ---- " << it->second << std::endl;
+        std::map<std::string, double>::iterator it = myFileMap.begin();
+
+        double dataValue = getClosestDate(myData, it->first);
+
+        std::cout << it->first << " => " << it->second << " => " << it->second * dataValue << std::endl;
     }
 }
