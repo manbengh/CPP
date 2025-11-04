@@ -1,5 +1,6 @@
 #include "PmergeMe.hpp"
 
+
 int main(int ac, char **av)
 {
     if (ac < 2)
@@ -7,9 +8,10 @@ int main(int ac, char **av)
         std::cout << "Wrong number of arguments !" << std::endl;
         return 0;
     }
+    PmergeMe MergeMe;
     try
     {
-        parsing(av);
+        MergeMe.parsing(av);
     }
     catch(const std::exception& e)
     {

@@ -1,6 +1,37 @@
 #include "PmergeMe.hpp"
 
-void parsing(char **av)
+PmergeMe::PmergeMe(){}
+
+PmergeMe::PmergeMe(PmergeMe const &other)
+{
+    *this = other;
+}
+
+PmergeMe &PmergeMe::operator=(PmergeMe const &other)
+{
+    this->deque = other.deque;
+    this->vector = other.vector;
+    return *this;
+}
+
+PmergeMe::~PmergeMe(){}
+
+// --------------------------------------------
+
+
+
+void PmergeMe::printContainer(std::vector<int> myVector)
+{
+    std::cout << "Before : ";
+    for (std::vector<int>::iterator it = myVector.begin(); it != myVector.end(); it++)
+    {
+        std::cout << *it << " ";
+    }
+    std::cout << "\n";
+}
+
+
+void PmergeMe::parsing(char **av)
 {
     for (int i = 1; av[i]; i++)
     {
@@ -28,7 +59,8 @@ void parsing(char **av)
             if (std::atoi(av[a]) == num)
                 throw std::invalid_argument("Error : Duplicates detected");
         }
+        vector.push_back(num);
     }
+    printContainer(vector);
 }
-
 
