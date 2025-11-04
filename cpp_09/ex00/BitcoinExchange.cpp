@@ -111,10 +111,25 @@ int isValCorr(double DValFile)
     return (0);
 }
 
-int parseLine(std::string &fileLine, std::map<std::string, double> &myFileMap)
+
+int myEmpty(std::string fileLine)
 {
     if (fileLine.empty())
-            return 1;
+    return 1;
+    for (size_t i = 0; i < fileLine.size(); i++)
+    {
+        if (fileLine[i] != ' ' && fileLine[i] != '\t')
+            return 0;
+    }
+    std::cout << "line -----> " << fileLine << std::endl;
+    return 1;
+}
+
+
+int parseLine(std::string &fileLine, std::map<std::string, double> &myFileMap)
+{
+    if (myEmpty(fileLine))
+            return 0;
     size_t pos = fileLine.find('|');
     if (pos == std::string::npos) // NOT FOUND
     {
