@@ -22,7 +22,7 @@ PmergeMe::~PmergeMe(){}
 
 void PmergeMe::printContainer(std::vector<int> myVector)
 {
-    std::cout << "Before : ";
+    std::cout << "Before :   ";
     for (std::vector<int>::iterator it = myVector.begin(); it != myVector.end(); it++)
     {
         std::cout << *it << " ";
@@ -60,6 +60,7 @@ void PmergeMe::parsing(char **av)
                 throw std::invalid_argument("Error : Duplicates detected");
         }
         vector.push_back(num);
+        deque.push_back(num);
     }
     printContainer(vector);
 }
