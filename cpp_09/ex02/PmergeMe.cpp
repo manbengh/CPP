@@ -1,4 +1,4 @@
-#include "PmergeMe.hpp"
+ #include "PmergeMe.hpp"
 
 PmergeMe::PmergeMe(){}
 
@@ -20,9 +20,12 @@ PmergeMe::~PmergeMe(){}
 
 
 
-void PmergeMe::printContainer(std::vector<int> myVector)
+void PmergeMe::printContainer(std::vector<int> myVector, bool status)
 {
-    std::cout << "Before :   ";
+    if (!status)
+        std::cout << "Before :   ";
+    else
+        std::cout << "After :   ";
     for (std::vector<int>::iterator it = myVector.begin(); it != myVector.end(); it++)
     {
         std::cout << *it << " ";
@@ -62,6 +65,48 @@ void PmergeMe::parsing(char **av)
         vector.push_back(num);
         deque.push_back(num);
     }
-    printContainer(vector);
+    // printContainer(vector);
 }
 
+template <typename C>
+void insertSort(C &c)
+{
+    for (size_t i = 1; i < c.size(); ++i)
+    {
+        int tmp = c[i];
+        size_t j = i;
+
+        while (j > 0 && c[j - 1] > tmp)
+        {
+            c[j] = c[j - 1];
+            --j;
+        }
+        c[j] = tmp;
+    }
+}
+
+
+
+template <typename C>
+void mergeInsertSortAlg(C &c)
+{
+    if (c.size() <= 10)
+        insertSort(c);
+    // else
+    // {
+    //    ;
+    // }
+   
+}
+
+
+
+void PmergeMe::mergeInsertSort()
+{
+    printContainer(this->vector, false);
+
+    mergeInsertSortAlg(this->vector);
+
+    printContainer(this->vector, true);
+
+}

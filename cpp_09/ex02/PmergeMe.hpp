@@ -25,10 +25,10 @@ class PmergeMe
         PmergeMe(PmergeMe const &other);
         PmergeMe &operator=(PmergeMe const &other);
         ~PmergeMe();
-        
-        
-        void printContainer(std::vector<int> myVector);
+
+        void printContainer(std::vector<int> myVector, bool status);
         void parsing(char **av);
+        void mergeInsertSort();
 };
 
 

@@ -12,6 +12,7 @@ int main(int ac, char **av)
     try
     {
         MergeMe.parsing(av);
+        MergeMe.mergeInsertSort();
     }
     catch(const std::exception& e)
     {
