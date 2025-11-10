@@ -85,111 +85,54 @@ void insertSort(C &c)
     }
 }
 
-// template <typename C>
-// C mergeAlg(C &leftSide, C &rightSide)
-// {
-//     C res;
-
-//     typename C::iterator itL = leftSide.begin();
-//     typename C::iterator itR = rightSide.begin();
-
-//     while (itL != leftSide.end() && itR != rightSide.end())
-//     {
-//         if (*itL < *itR)
-//             res.push_back(*itL++);
-//         else
-//             res.push_back(*itR++);
-//     }
-   
-//     while (itL != leftSide.end())
-//     {
-//         res.push_back(*itL++);
-//     }
-
-//     while (itR != rightSide.end())
-//     {
-//         res.push_back(*itR++);
-//     }
-
-//     return res;
-// }
-
-
-
-
 template <typename C>
-void mergeAlg(C &c, size_t left, size_t mid, size_t right)
+C mergeAlg(C &leftSide, C &rightSide)
 {
-    C tmp;
-    tmp.reserve(right - left); // évite les reallocations (utile pour vector)
+    C res;
 
-    size_t i = left;
-    size_t j = mid;
+    typename C::iterator itL = leftSide.begin();
+    typename C::iterator itR = rightSide.begin();
 
-    while (i < mid && j < right)
+    while (itL != leftSide.end() && itR != rightSide.end())
     {
-        if (c[i] <= c[j])
-            tmp.push_back(c[i++]);
+        if (*itL < *itR)
+            res.push_back(*itL++);
         else
-            tmp.push_back(c[j++]);
+            res.push_back(*itR++);
+    }
+   
+    while (itL != leftSide.end())
+    {
+        res.push_back(*itL++);
     }
 
-    while (i < mid)
-        tmp.push_back(c[i++]);
-    while (j < right)
-        tmp.push_back(c[j++]);
+    while (itR != rightSide.end())
+    {
+        res.push_back(*itR++);
+    }
 
-    for (size_t k = 0; k < tmp.size(); ++k)
-        c[left + k] = tmp[k];
+    return res;
 }
 
 
 template <typename C>
-void mergeInsertSortAlg(C &c, size_t left, size_t right)
+void mergeInsertSortAlg(C &c)
 {
-    size_t size = right - left;
-    if (size <= 10)
+    if (c.size() <= 5)
+        insertSort(c);
+    else
     {
-        for (size_t i = left + 1; i < right; ++i)
-        {
-            int tmp = c[i];
-            size_t j = i;
-            while (j > left && c[j - 1] > tmp)
-            {
-                c[j] = c[j - 1];
-                --j;
-            }
-            c[j] = tmp;
-        }
-        return;
+       typename C::iterator middle = c.begin() + c.size() / 2;
+
+       C leftSide(c.begin(), middle);
+       C rightSide(middle, c.end());
+
+        mergeInsertSortAlg(leftSide);
+        mergeInsertSortAlg(rightSide);
+
+       c = mergeAlg(leftSide, rightSide);
     }
-
-    size_t mid = left + size / 2;
-    mergeInsertSortAlg(c, left, mid);
-    mergeInsertSortAlg(c, mid, right);
-    mergeAlg(c, left, mid, right);
 }
-
-
-// template <typename C>
-// void mergeInsertSortAlg(C &c)
-// {
-//     if (c.size() <= 5)
-//         insertSort(c);
-//     else
-//     {
-//        typename C::iterator middle = c.begin() + c.size() / 2;
-
-//        C leftSide(c.begin(), middle);
-//        C rightSide(middle, c.end());
-
-//         mergeInsertSortAlg(leftSide);
-//         mergeInsertSortAlg(rightSide);
-
-//        c = mergeAlg(leftSide, rightSide);
-//     }
-// }
-
 
 
 void PmergeMe::mergeInsertSort()
@@ -197,20 +140,19 @@ void PmergeMe::mergeInsertSort()
     printContainer(this->vector, false);
 
     clock_t startClockVec = clock();
-    mergeInsertSortAlg(this->vector, 0, vector.size());
+    mergeInsertSortAlg(this->vector);
     clock_t endClockVec = clock();
 
     clock_t startClockDeq = clock();
-    mergeInsertSortAlg(this->deque, 0, deque.size());
+    mergeInsertSortAlg(this->deque);
     clock_t endClockDeq = clock();
 
     printContainer(this->vector, true);
 
 
     double timeVec = static_cast<double>(endClockVec - startClockVec) / CLOCKS_PER_SEC * 1e6;
-    // double timeVec = double(endClockVec - startClockVec) / double(CLOCKS_PER_SEC);
     double timeDeq = static_cast<double>(endClockDeq - startClockDeq) / CLOCKS_PER_SEC * 1e6;
 
-    std::cout << "Time to process a range of " << this->vector.size() << " elements with std::vector : " << timeVec << " us" << std::endl;
-    std::cout << "Time to process a range of " << this->deque.size() << " elements with std::deque : " << timeDeq << " us" << std::endl;
+    std::cout << "Time to process a range of " << this->vector.size() << " elements with std::vector : " << timeVec / 1000 << " us" << std::endl;
+    std::cout << "Time to process a range of " << this->deque.size() << " elements with std::deque : " << timeDeq / 1000 << " us" << std::endl;
 }

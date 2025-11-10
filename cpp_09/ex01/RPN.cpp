@@ -3,7 +3,7 @@
 
 void myRPN(const std::string &arg)
 {
-    std::stack<int> myStack;
+    std::stack<double> myStack;
     std::string token;
 
     for (size_t i = 0; i < arg.size(); i++)
@@ -13,7 +13,7 @@ void myRPN(const std::string &arg)
             continue;
         else if (std::isdigit(c))
         {
-            myStack.push(c - '0');
+            myStack.push(static_cast<double>(c - '0'));
             // std::cout << c << std::endl;
         }
         else if (c == '+' || c == '-' || c == '*' || c == '/')
@@ -22,17 +22,17 @@ void myRPN(const std::string &arg)
                 return (printError(" : not enough operands !"));
             // std::cout << c << std::endl;
 
-            int b = myStack.top() ; myStack.pop();
-            int a = myStack.top() ; myStack.pop();
+            double b = myStack.top() ; myStack.pop();
+            double a = myStack.top() ; myStack.pop();
 
             // if (b > a)
             // {
-            //     int tmp = a;
+            //     double tmp = a;
             //     a = b;
             //     b = tmp;
             // }
 
-            int res = 0;
+            double res = 0;
 
             switch (c)
             {
