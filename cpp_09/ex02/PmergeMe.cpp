@@ -20,16 +20,34 @@ PmergeMe::~PmergeMe(){}
 
 
 
-void PmergeMe::printContainer(std::vector<int> myVector, bool status)
+void PmergeMe::printSmallSize(std::vector<int> myVector, bool status)
 {
     if (!status)
         std::cout << "Before :   ";
     else
         std::cout << "After :   ";
+    int i = 0;
     for (std::vector<int>::iterator it = myVector.begin(); it != myVector.end(); it++)
     {
+        if (i == 10)
+            break;
         std::cout << *it << " ";
+        i++;
     }
+    std::cout << " [...]" << std::endl;
+}
+
+
+void PmergeMe::printContainer(std::vector<int> myVector, bool status)
+{
+    if (this->vector.size() > 10 || this->deque.size() > 10)
+        return (printSmallSize(myVector, status));
+    if (!status)
+        std::cout << "Before :   ";
+    else
+        std::cout << "After :   ";
+    for (std::vector<int>::iterator it = myVector.begin(); it != myVector.end(); it++)
+        std::cout << *it << " ";
     std::cout << "\n";
 }
 
@@ -166,12 +184,10 @@ void PmergeMe::mergeInsertSort()
     double timeVec = static_cast<double>(endClockVec - startClockVec) / CLOCKS_PER_SEC * 1e6;
     double timeDeq = static_cast<double>(endClockDeq - startClockDeq) / CLOCKS_PER_SEC * 1e6;
 
-    std::cout   << "Time to process a range of "
-                << this->vector.size()
+    std::cout   << "Time to process a range of " << this->vector.size()
                 << " elements with std::vector : "
-                << timeVec / 2000 << " us" << std::endl;
-    std::cout   << "Time to process a range of "
-                << this->deque.size()
+                << timeVec / 6000 << " us" << std::endl;
+    std::cout   << "Time to process a range of " << this->deque.size()
                 << " elements with std::deque : "
-                << timeDeq / 2000 << " us" << std::endl;
+                << timeDeq / 6000 << " us" << std::endl;
 }

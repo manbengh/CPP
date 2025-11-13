@@ -28,6 +28,8 @@ class PmergeMe
 
         void printContainer(std::vector<int> myVector, bool status);
         void parsing(char **av);
+        void printSmallSize(std::vector<int> myVector, bool status);
+
         void mergeInsertSort();
 };
 
