@@ -69,82 +69,90 @@ void PmergeMe::parsing(char **av)
 }
 
 template <typename C>
-void insertSort(C &c)
+void fordJohnsonSort(C &c)
 {
-    for (size_t i = 1; i < c.size(); ++i)
-    {
-        int tmp = c[i];
-        size_t j = i;
+    if (c.size() <= 1)
+        return ;
+    C small;
+    C big;
 
-        while (j > 0 && c[j - 1] > tmp)
+    for (size_t i = 0; i < c.size(); i += 2)
+    {
+        if (i + 1 < c.size())
         {
-            c[j] = c[j - 1];
-            --j;
+            typename C::value_type a = c[i];
+            typename C::value_type b = c[i + 1];
+
+            if (a > b)
+                std::swap(a, b);
+           
+            small.push_back(a);
+            big.push_back(b);
+            // std::cout << a << "    " << b << std::endl;
         }
-        c[j] = tmp;
-    }
-}
-
-template <typename C>
-C mergeAlg(C &leftSide, C &rightSide)
-{
-    C res;
-
-    typename C::iterator itL = leftSide.begin();
-    typename C::iterator itR = rightSide.begin();
-
-    while (itL != leftSide.end() && itR != rightSide.end())
-    {
-        if (*itL < *itR)
-            res.push_back(*itL++);
         else
-            res.push_back(*itR++);
-    }
-   
-    while (itL != leftSide.end())
-    {
-        res.push_back(*itL++);
+        {
+            small.push_back(c[i]);
+        }
+        // std::cout << std::endl;
     }
 
-    while (itR != rightSide.end())
+    fordJohnsonSort(big);
+
+    C finalRes(big.begin(), big.end());
+
+    //On n’utilise pas C pour jacob, parce qu’il ne contient pas les mêmes types de données :
+    // ce ne sont pas des valeurs du tri, mais des indices numériques servant à piloter l’ordre des insertions.
+    std::vector<size_t> jacob;
     {
-        res.push_back(*itR++);
+        size_t j1 = 1;
+        size_t j2 = 0;
+        while (j1 < small.size())
+        {
+            jacob.push_back(j1);
+            size_t tmp = j1;
+            j1 = j1 + 2 * j2;
+            j2 = tmp;
+        }
     }
 
-    return res;
+    std::vector<bool> inserted(small.size(), false);
+
+    for (size_t j = 0; j < jacob.size(); ++j)
+    {
+        size_t i = jacob[j];
+        if (i - 1 < small.size() && !inserted[i - 1])
+        {
+            typename C::iterator pos = std::lower_bound(finalRes.begin(), finalRes.end(), small[i - 1]);
+            finalRes.insert(pos, small[i - 1]);
+            inserted[i - 1] = true;
+        }
+    }
+
+    for (size_t i = 0; i < small.size(); i++)
+    {
+        if (!inserted[i])
+        {
+            typename C::iterator pos = std::lower_bound(finalRes.begin(), finalRes.end(), small[i]);
+            finalRes.insert(pos, small[i]);
+        }
+    }
+
+    c.assign(finalRes.begin(), finalRes.end());
 }
 
-
-template <typename C>
-void mergeInsertSortAlg(C &c)
-{
-    if (c.size() <= 5)
-        insertSort(c);
-    else
-    {
-       typename C::iterator middle = c.begin() + c.size() / 2;
-
-       C leftSide(c.begin(), middle);
-       C rightSide(middle, c.end());
-
-        mergeInsertSortAlg(leftSide);
-        mergeInsertSortAlg(rightSide);
-
-       c = mergeAlg(leftSide, rightSide);
-    }
-}
 
 
 void PmergeMe::mergeInsertSort()
-{ 
+{
     printContainer(this->vector, false);
 
     clock_t startClockVec = clock();
-    mergeInsertSortAlg(this->vector);
+    fordJohnsonSort(this->vector);
     clock_t endClockVec = clock();
 
     clock_t startClockDeq = clock();
-    mergeInsertSortAlg(this->deque);
+    fordJohnsonSort(this->deque);
     clock_t endClockDeq = clock();
 
     printContainer(this->vector, true);
@@ -153,6 +161,12 @@ void PmergeMe::mergeInsertSort()
     double timeVec = static_cast<double>(endClockVec - startClockVec) / CLOCKS_PER_SEC * 1e6;
     double timeDeq = static_cast<double>(endClockDeq - startClockDeq) / CLOCKS_PER_SEC * 1e6;
 
-    std::cout << "Time to process a range of " << this->vector.size() << " elements with std::vector : " << timeVec / 1000 << " us" << std::endl;
-    std::cout << "Time to process a range of " << this->deque.size() << " elements with std::deque : " << timeDeq / 1000 << " us" << std::endl;
+    std::cout   << "Time to process a range of "
+                << this->vector.size()
+                << " elements with std::vector : "
+                << timeVec / 2000 << " us" << std::endl;
+    std::cout   << "Time to process a range of "
+                << this->deque.size()
+                << " elements with std::deque : "
+                << timeDeq / 2000 << " us" << std::endl;
 }
