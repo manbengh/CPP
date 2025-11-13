@@ -106,7 +106,7 @@ int isValCorr(double DValFile)
 {
     if (DValFile <= 0)
         return (printError("Not a positive number."), 1);
-    if (DValFile > 2147483647)
+    if (DValFile > 1000)
         return (printError("Too large a number."), 1);
     return (0);
 }

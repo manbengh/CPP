@@ -42,6 +42,11 @@ void PmergeMe::parsing(char **av)
         // std::cout << arg << std::endl;
 
         int signNum = 0;
+        if (arg.size() == 1)
+        {
+            if (!isdigit(arg[0]))
+                throw std::invalid_argument("Error : Invalid arg");
+        }
         for (int j = 0; arg[j]; j++)
         {
             if (arg[j] == '+' || arg[j] == '-')

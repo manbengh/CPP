@@ -6,6 +6,8 @@ void myRPN(const std::string &arg)
     std::stack<double> myStack;
     std::string token;
 
+    if (arg.empty())
+        return (printError(" : empty !"));
     for (size_t i = 0; i < arg.size(); i++)
     {
         char c = arg[i];
@@ -62,7 +64,7 @@ void myRPN(const std::string &arg)
 
     if (myStack.size() != 1)
     {
-        std::cout << myStack.top() << std::endl;
+        // std::cout << myStack.top() << std::endl;
         return (printError(" : invalid size of Stack !"));
     }
    
