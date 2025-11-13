@@ -1,4 +1,4 @@
-#include "BitcoinExchange.hpp"
+ #include "BitcoinExchange.hpp"
 
 void checkArgs(int argc, char **argv)
 {
@@ -22,7 +22,7 @@ void checkData(std::map<std::string, double> &myData, std::ifstream &dataFile)
             continue;
 
         // IGNORER 1ERE LINE
-        if (i == 0 && line.find("date") != std::string::npos) 
+        if (i == 0 && line.find("date") != std::string::npos)
         {
             // std::cout << line << std::endl;
             i++;
@@ -61,7 +61,7 @@ void printError(std::string err)
  int isDateCorr(std::string keyFile)
 {
     // std::cout << "\nkeyFile =============> " << keyFile << std::endl;
-    if (keyFile.size() != 11)
+    if (keyFile.size() != 10)
         return (printError("bad input => " + keyFile),1);
     for (int i = 0; i < 10; i++)
     {
@@ -111,25 +111,32 @@ int isValCorr(double DValFile)
     return (0);
 }
 
-
-int myEmpty(std::string fileLine)
+bool myEmpty(std::string fileLine)
 {
     if (fileLine.empty())
-    return 1;
+        return true;
     for (size_t i = 0; i < fileLine.size(); i++)
     {
         if (fileLine[i] != ' ' && fileLine[i] != '\t')
-            return 0;
+            return false;
     }
-    std::cout << "line -----> " << fileLine << std::endl;
-    return 1;
+    return true;
+}
+
+std::string trim(const std::string &str)
+{
+    size_t first = str.find_first_not_of(" \t\n\r\f\v");
+    if (first == std::string::npos)
+        return "";
+    size_t last = str.find_last_not_of(" \t\n\r\f\v");
+    return str.substr(first, (last - first + 1));
 }
 
 
 int parseLine(std::string &fileLine, std::map<std::string, double> &myFileMap)
 {
     if (myEmpty(fileLine))
-            return 0;
+            return 1;
     size_t pos = fileLine.find('|');
     if (pos == std::string::npos) // NOT FOUND
     {
@@ -137,12 +144,13 @@ int parseLine(std::string &fileLine, std::map<std::string, double> &myFileMap)
         return 1;
     }
 
-    std::string keyFile = fileLine.substr(0, pos);
-    std::string valFile = fileLine.substr(pos + 1);
+    std::string keyFile = trim(fileLine.substr(0, pos));
+    std::string valFile = trim(fileLine.substr(pos + 1));
 
     if (fileLine.find("date") != std::string::npos && fileLine.find("value") != std::string::npos)
         return (1);
 
+    // std::cout << "--- " << keyFile << " === " << valFile << std::endl;
     std::stringstream ss(valFile);
     double DValFile;
     ss >> DValFile;
