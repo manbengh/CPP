@@ -106,7 +106,7 @@ int isValCorr(double DValFile)
 {
     if (DValFile <= 0)
         return (printError("Not a positive number."), 1);
-    if (DValFile > 1000)
+    if (DValFile >= 1000)
         return (printError("Too large a number."), 1);
     return (0);
 }
@@ -132,13 +132,13 @@ std::string trim(const std::string &str)
     return str.substr(first, (last - first + 1));
 }
 
-
 int parseLine(std::string &fileLine, std::map<std::string, double> &myFileMap)
 {
     if (myEmpty(fileLine))
-            return 1;
+        return 1;
+
     size_t pos = fileLine.find('|');
-    if (pos == std::string::npos) // NOT FOUND
+    if (pos == std::string::npos) // Pas de '|'
     {
         std::cout << "Error : bad input (no '|') : " << fileLine << std::endl;
         return 1;
@@ -148,24 +148,52 @@ int parseLine(std::string &fileLine, std::map<std::string, double> &myFileMap)
     std::string valFile = trim(fileLine.substr(pos + 1));
 
     if (fileLine.find("date") != std::string::npos && fileLine.find("value") != std::string::npos)
-        return (1);
+        return 1;
 
-    // std::cout << "--- " << keyFile << " === " << valFile << std::endl;
-    std::stringstream ss(valFile);
-    double DValFile;
-    ss >> DValFile;
-    if (ss.fail())
+    // if (isDateCorr(keyFile))
+    //     return 1;
+
+    //DOT CHECKS
+    int dotCount = std::count(valFile.begin(), valFile.end(), '.');
+    if (dotCount > 1)
     {
-        std::cout << "Invalid Value in line --> " << fileLine << std::endl;
+        std::cout << "Error : invalid number (too many dots) => " << valFile << std::endl;
+        return 1;
+    }
+    if (dotCount == 1)
+    {
+        size_t dotPos = valFile.find('.');
+        if (dotPos == 0 || dotPos == valFile.size() - 1) {
+            std::cout << "Error : invalid number (dot at start or end) => " << valFile << std::endl;
+            return 1;
+        }
+    }
+
+    // for (size_t i = 0; i < valFile.size(); i++)
+    // {
+    //     if (!isdigit(valFile[i]) && valFile[i] != '.') {
+    //         std::cout << "Error : invalid character in number => " << valFile << std::endl;
+    //         return 1;
+    //     }
+    // }
+
+    double DValFile;
+    std::stringstream ss(valFile);
+    ss >> DValFile;
+    if (ss.fail() || !ss.eof())
+    {
+        std::cout << "Error : invalid number => " << valFile << std::endl;
         return 1;
     }
 
-    if (isDateCorr(keyFile) || isValCorr(DValFile))
-        return (1);
+    if (isValCorr(DValFile) || isDateCorr(keyFile))
+        return 1;
 
     myFileMap[keyFile] = DValFile;
-    return (0);
+    return 0;
 }
+
+
 
 double getClosestDate(std::map<std::string, double> &myData, std::string theDate)
 {
