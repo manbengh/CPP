@@ -104,9 +104,9 @@ void printError(std::string err)
 
 int isValCorr(double DValFile)
 {
-    if (DValFile <= 0)
+    if (DValFile < 0)
         return (printError("Not a positive number."), 1);
-    if (DValFile >= 1000)
+    if (DValFile > 1000)
         return (printError("Too large a number."), 1);
     return (0);
 }
@@ -150,8 +150,6 @@ int parseLine(std::string &fileLine, std::map<std::string, double> &myFileMap)
     if (fileLine.find("date") != std::string::npos && fileLine.find("value") != std::string::npos)
         return 1;
 
-    // if (isDateCorr(keyFile))
-    //     return 1;
 
     //DOT CHECKS
     int dotCount = std::count(valFile.begin(), valFile.end(), '.');
@@ -168,14 +166,6 @@ int parseLine(std::string &fileLine, std::map<std::string, double> &myFileMap)
             return 1;
         }
     }
-
-    // for (size_t i = 0; i < valFile.size(); i++)
-    // {
-    //     if (!isdigit(valFile[i]) && valFile[i] != '.') {
-    //         std::cout << "Error : invalid character in number => " << valFile << std::endl;
-    //         return 1;
-    //     }
-    // }
 
     double DValFile;
     std::stringstream ss(valFile);
